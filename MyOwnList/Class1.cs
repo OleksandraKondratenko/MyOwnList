@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic();
+using System.Collections.Generic;
 
 namespace MyOwnList
 {
@@ -7,8 +7,7 @@ namespace MyOwnList
     {
         public void ListAAA()
         {
-            List<int> list = new List<int>();
-            list.
+           
         }
 
     }
