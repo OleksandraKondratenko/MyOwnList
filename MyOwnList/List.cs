@@ -15,16 +15,26 @@ namespace MyOwnList
         {
             get
             {
+                if (!IsValid(index))
+                {
+                    throw new IndexOutOfRangeException("Invalid index");
+                }
+
                 return array[index];
             }
             set
             {
+                if (!IsValid(index))
+                {
+                    throw new IndexOutOfRangeException("Invalid index");
+                }
+
                 array[index] = value;
             }
         }
-        private bool IsValid()
+        private bool IsValid(int index)
         {
-            if(array.Length>)
+            return index >= 0 && index < array.Length;
         }
     }
 }
