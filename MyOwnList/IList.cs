@@ -3,16 +3,7 @@ using System.Collections.Generic;
 
 namespace Lists
 {
-    public class AuxFunc
-    {
-        public static void Swap(ref int a, ref int b)
-        {
-            int t = a;
-            a = b;
-            b = t;
-        }
-    }
-    public interface IList : IEnumerable<int>
+     public interface IList : IEnumerable<int>
     {
         void Init(int[] ini);
         int Size();
