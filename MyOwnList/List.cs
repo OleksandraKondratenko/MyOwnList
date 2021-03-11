@@ -5,36 +5,53 @@ namespace MyOwnList
     public class List<T>
     {
         private T[] array;
-        
+        public int Capacity
+        {
+            get
+            {
+                return array.Length;
+            }
+            private set
+            {
+                
+            }
+        }
+        public int Count
+        {
+            get
+            {
+                return array.Length;
+            }
+            set
+            {
+
+            }
+        }
         public List()
         {
-           array = new T[0];
+            Count = 0;
+            array = new T[8];
         }
-        
+
         public T this[int index]
         {
             get
             {
-                if (!IsValid(index))
-                {
-                    throw new IndexOutOfRangeException("Invalid index");
-                }
-
                 return array[index];
             }
             set
             {
-                if (!IsValid(index))
-                {
-                    throw new IndexOutOfRangeException("Invalid index");
-                }
-
                 array[index] = value;
             }
         }
-        private bool IsValid(int index)
+
+        public void Add(T item)
         {
-            return index >= 0 && index < array.Length;
+            if(IsValid(Count))
         }
+        
+
+
+
     }
 }
