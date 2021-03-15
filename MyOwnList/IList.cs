@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
-namespace MyOwnList
+namespace Lists
 {
-     public interface IList<T> : IEnumerable<int>
+     public interface IList : IEnumerable<int>
     {
+        void Init(int[] ini);
+        int Size();
         void Clear();
         String ToString();
-        T[] ToArray();
-        void AddStart(T val);
-        void AddEnd(T val);
-        void AddPos(int pos, T val);
-        T DelPos(int pos);
-        T DelStart();
-        T DelEnd();
+        int[] ToArray();
+        void AddStart(int val);
+        void AddEnd(int val);
+        void AddPos(int pos, int val);
+        int DelPos(int pos);
+        int DelStart();
+        int DelEnd();
         int MaxPos();
-        T Max();
+        int Max();
         int MinPos();
-        T Min();
-        void Set(int pos, T val);
-        T Get(int pos);
+        int Min();
+        void Set(int pos, int val);
+        int Get(int pos);
         void Sort();
         void Reverse();
         void HalfReverse();
