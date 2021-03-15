@@ -9,24 +9,25 @@ namespace ConsoleTest
         static void Main(string[] args)
         {
             MyList<int> list = new MyList<int>();
-
-            list.Add(10);
-            list.Add(20);
-            list.Add(30);
-            list.Add(40);
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                Console.Write($"{list[i]}  ");
-            }
-
-            Console.WriteLine();
-            list.AddEnd(15);
+            list.Add(7);
+            list.Add(147);
+            list.Add(-1234);
+            list.Add(105);
 
             for (int i = 0; i < list.Count; i++)
             {
-                Console.Write($"{list[i]}  ");
+                Console.Write($"{list[i]} ");
             }
+            Console.WriteLine(list.Count);
+
+            list.DelPos(4);
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                Console.Write($"{list[i]} ");
+            }
+            Console.WriteLine(list.Count);
+
             //Console.WriteLine(list.Count);
             //list.Clear();
             //Console.WriteLine(list.Count);
@@ -44,7 +45,6 @@ namespace ConsoleTest
 
             //Console.WriteLine(originList[0].ToString());
 
-            
 
         }
     }
