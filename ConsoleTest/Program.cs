@@ -9,6 +9,7 @@ namespace ConsoleTest
         static void Main(string[] args)
         {
             MyList<int> list = new MyList<int>();
+
             list.Add(10);
             list.Add(20);
             list.Add(30);
@@ -44,6 +45,7 @@ namespace ConsoleTest
             //Console.WriteLine(originList[0].ToString());
 
             
+
         }
     }
 }
