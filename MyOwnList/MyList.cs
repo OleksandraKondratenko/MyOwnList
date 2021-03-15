@@ -21,7 +21,8 @@ namespace MyOwnList
                 value = array.Length;
             }
         }
-        public int Count { get; private set; }
+
+        public int Count { get; private set ; }
 
         public MyList()
         {
@@ -33,7 +34,7 @@ namespace MyOwnList
         {
             get
             {
-                if (!IsValid(index))
+                if (!IsValidCapacity(index))
                 {
                     throw new IndexOutOfRangeException("Invalid index");
                 }
@@ -42,7 +43,7 @@ namespace MyOwnList
             }
             set
             {
-                if (!IsValid(index))
+                if (!IsValidCapacity(index))
                 {
                     throw new IndexOutOfRangeException("Invalid index");
                 }
@@ -53,9 +54,9 @@ namespace MyOwnList
 
         public void Add(T item)
         {
-            if (!IsValid(Count))
+            if (!IsValidCapacity(Count))
             {
-                Resize();
+                ResizeUp();
             }
 
             array[Count] = item;
@@ -80,38 +81,27 @@ namespace MyOwnList
             return array;
         }
 
-        private void Resize()
-        {
-            array = new T[Capacity * 2];
-        }
-
-        private bool IsValid(int index)
-        {
-            return index >= 0 && index < array.Length;
-        }
-
         public void AddPos(int pos, T val)
         {
             T temp;
 
-                for (int i = pos; i < Count; i++)
+            for (int i = pos; i < Count; i++)
+            {
+                if (i != (Capacity - 1))
                 {
-                    if (i != (Capacity - 1))
-                    {
-                        temp = array[pos];
-                        array[pos] = val;
-                        val = array[pos + 1];
-                        ++pos;
-                        array[pos] = temp;
-                        ++pos;
-
-                    }
-                    else
-                    {
-                        Resize();
-                        i--;
-                    }
+                    temp = array[pos];
+                    array[pos] = val;
+                    val = array[pos + 1];
+                    ++pos;
+                    array[pos] = temp;
+                    ++pos;
                 }
+                else
+                {
+                    ResizeUp();
+                    i--;
+                }
+            }
 
             ++Count;
         }
@@ -126,13 +116,41 @@ namespace MyOwnList
             Add(val);
         }
 
+        public T DelPos(int pos)
+        {
+            if (IsValidCount(pos))
+            {
+                T value = array[pos];
+                --Count;
+
+                for (int i = pos; i < Count; i++)
+                {
+                    array[i] = array[i + 1];
+                }
+
+                return value;
+            }
+
+            throw new ArgumentOutOfRangeException("Invalid position!");
+        }
+
+        public T DelStart()
+        {
+            return DelPos(0);
+        }
+
+        public T DelEnd()
+        {
+            return DelPos(Count - 1);
+        }
+
         public int MinPos()
         {
             int minIndex = 0;
 
             for (int i = 1; i < array.Length - 1; i++)
             {
-                if (array[minIndex].CompareTo(array[i])==1)
+                if (array[minIndex].CompareTo(array[i]) == 1)
                 {
                     minIndex = i;
                 }
@@ -165,10 +183,84 @@ namespace MyOwnList
             return array[MinPos()];
         }
 
-        public void Set(int pos, int val)
+        public void Set(int pos, T value)
+        {
+            if (IsValidCount(pos))
+            {
+                array[pos] = value;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("Invalid position!");
+            }
+        }
+
+        public T Get(int pos)
+        {
+            if (IsValidCount(pos))
+            {
+                return array[pos];
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("Invalid position!");
+            }
+        }
+
+        public void Sort()
+        {
+            Array.Sort(array);
+        }
+
+        public void Reverse()
+        {
+            for (int i = 0; i <= Count / 2 - 1; i++)
+            {
+                Swap(ref array[i], ref array[Count - i - 1]);
+            }
+        }
+
+        public void HalfReverse()
+        {
+            int k = Count / 2 + Count % 2;
+
+            for (int i = 0; i < Count / 2; i++)
+            {
+                Swap(ref array[i], ref array[k + i]);
+            }
+        }
+
+
+        private void ResizeUp()
+        {
+            array = new T[(int)(Capacity * 1.3 + 1)];
+        }
+
+        private bool IsValidCapacity(int index)
+        {
+            return index >= 0 && index < array.Length;
+        }
+
+        private bool IsValidCount(int index)
+        {
+            return index >= 0 && index < Count;
+        }
+
+        private void Swap(ref T a, ref T b)
+        {
+            T temp = a;
+            a = b;
+            b = temp;
+        }
+
+        public IEnumerator<int> GetEnumerator()
         {
             throw new NotImplementedException();
         }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

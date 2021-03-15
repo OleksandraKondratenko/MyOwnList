@@ -5,14 +5,12 @@ namespace MyOwnList
 {
      public interface IList<T> : IEnumerable<int>
     {
-        
-        int Size();
         void Clear();
         String ToString();
         T[] ToArray();
-        void AddStart(int val);
-        void AddEnd(int val);
-        void AddPos(int pos, int val);
+        void AddStart(T val);
+        void AddEnd(T val);
+        void AddPos(int pos, T val);
         T DelPos(int pos);
         T DelStart();
         T DelEnd();
@@ -20,7 +18,7 @@ namespace MyOwnList
         T Max();
         int MinPos();
         T Min();
-        void Set(int pos, int val);
+        void Set(int pos, T val);
         T Get(int pos);
         void Sort();
         void Reverse();
