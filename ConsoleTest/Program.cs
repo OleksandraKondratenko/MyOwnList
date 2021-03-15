@@ -8,11 +8,13 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
+
+            List<int> list1 = new List<int>() { 6, 8, 9, 10, 25, 78, 12, 45, 25 };
             MyList<int> list = new MyList<int>();
-            list.Add(7);
-            list.Add(147);
-            list.Add(-1234);
-            list.Add(105);
+            list.Add(10);
+            list.Add(20);
+            list.Add(30);
+            list.Add(40);
 
             for (int i = 0; i < list.Count; i++)
             {
@@ -45,7 +47,7 @@ namespace ConsoleTest
 
             //Console.WriteLine(originList[0].ToString());
 
-
+            
         }
     }
 }
