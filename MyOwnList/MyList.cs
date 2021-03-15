@@ -1,10 +1,12 @@
-﻿using System;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Text;
 
 namespace MyOwnList
 {
-    public class MyList<T> : IComparable<T>
+    public class MyList<T>: MyOwnList.IList<T> where T : IComparable
     {
         private T[] array;
 
@@ -19,9 +21,10 @@ namespace MyOwnList
                 value = array.Length;
             }
         }
-        public int Count { get; private set; }
+        
+        public int Count { get; private set ; }
 
-        public object Current => throw new NotImplementedException();
+    
 
         public MyList()
         {
@@ -33,7 +36,9 @@ namespace MyOwnList
         {
             get
             {
-                if (!IsValid(index))
+
+                if (!IsValidCapacity(index))
+
                 {
                     throw new IndexOutOfRangeException("Invalid index");
                 }
@@ -42,7 +47,9 @@ namespace MyOwnList
             }
             set
             {
-                if (!IsValid(index))
+
+                if (!IsValidCapacity(index))
+
                 {
                     throw new IndexOutOfRangeException("Invalid index");
                 }
@@ -53,9 +60,10 @@ namespace MyOwnList
 
         public void Add(T item)
         {
-            if (!IsValid(Count))
+
+            if (!IsValidCapacity(Count))
             {
-                Resize();
+                ResizeUp();
             }
 
             array[Count] = item;
@@ -68,42 +76,195 @@ namespace MyOwnList
             array = new T[8];
         }
 
-        public T Min()
+        public override string ToString()
         {
-            if (Count == 0)
-            {
-                throw new IndexOutOfRangeException("List is empty");
-            }
+            return array.ToString();
+        }
 
-            T min = array[0];
+        public T[] ToArray()
+        {
+            return array;
+        }
 
-            for (int i = 0; i < Count; i++)
+        public void AddPos(int pos, T val)
+        {
+            T temp;
+
+            for (int i = pos; i < Count; i++)
             {
-                if (array[i] < min)
+                if (i != (Capacity - 1))
                 {
-                    min = array[i];
+                    temp = array[pos];
+                    array[pos] = val;
+                    val = array[pos + 1];
+                    ++pos;
+                    array[pos] = temp;
+                    ++pos;
+                }
+                else
+                {
+                    ResizeUp();
+                    i--;
                 }
             }
 
-            return min;
+            ++Count;
         }
 
-        private void Resize()
+        public void AddStart(T val)
         {
-            array = new T[Capacity * 2];
+            AddPos(0, val);
         }
 
-        private bool IsValid(int index)
+        public void AddEnd(T val)
+        {
+            Add(val);
+        }
+
+        public T DelPos(int pos)
+        {
+            if (IsValidCount(pos))
+            {
+                T value = array[pos];
+                --Count;
+
+                for (int i = pos; i < Count; i++)
+                {
+                    array[i] = array[i + 1];
+                }
+
+                return value;
+            }
+
+            throw new ArgumentOutOfRangeException("Invalid position!");
+        }
+
+        public T DelStart()
+        {
+            return DelPos(0);
+        }
+
+        public T DelEnd()
+        {
+            return DelPos(Count - 1);
+        }
+
+        public int MinPos()
+        {
+            int minIndex = 0;
+
+            for (int i = 1; i < array.Length - 1; i++)
+            {
+                if (array[minIndex].CompareTo(array[i]) == 1)
+                {
+                    minIndex = i;
+                }
+            }
+
+            return minIndex;
+        }
+
+        public int MaxPos()
+        {
+            int maxIndex = 0;
+
+            for (int i = 1; i < array.Length - 1; i++)
+            {
+                if (array[maxIndex].CompareTo(array[i]) == -1)
+                {
+                    maxIndex = i;
+                }
+            }
+
+            return maxIndex;
+        }
+
+        public T Max()
+        {
+            return array[MaxPos()];
+        }
+        public T Min()
+        {
+            return array[MinPos()];
+        }
+
+        public void Set(int pos, T value)
+        {
+            if (IsValidCount(pos))
+            {
+                array[pos] = value;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("Invalid position!");
+            }
+        }
+
+        public T Get(int pos)
+        {
+            if (IsValidCount(pos))
+            {
+                return array[pos];
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("Invalid position!");
+            }
+        }
+
+        public void Sort()
+        {
+            Array.Sort(array);
+        }
+
+        public void Reverse()
+        {
+            for (int i = 0; i <= Count / 2 - 1; i++)
+            {
+                Swap(ref array[i], ref array[Count - i - 1]);
+            }
+        }
+
+        public void HalfReverse()
+        {
+            int k = Count / 2 + Count % 2;
+
+            for (int i = 0; i < Count / 2; i++)
+            {
+                Swap(ref array[i], ref array[k + i]);
+            }
+        }
+
+        private void ResizeUp()
+        {
+            array = new T[(int)(Capacity * 1.3 + 1)];
+        }
+
+        private bool IsValidCapacity(int index)
         {
             return index >= 0 && index < array.Length;
         }
 
-        public int CompareTo(T other)
+        private bool IsValidCount(int index)
         {
-            T item = other is T;
-            if()
+            return index >= 0 && index < Count;
+        }
+        
+        private void Swap(ref T a, ref T b)
+        {
+            T temp = a;
+            a = b;
+            b = temp;
         }
 
-        //private 
+        public IEnumerator<int> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
