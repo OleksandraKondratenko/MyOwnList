@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -21,8 +21,10 @@ namespace MyOwnList
                 value = array.Length;
             }
         }
-
+        
         public int Count { get; private set ; }
+
+    
 
         public MyList()
         {
@@ -34,7 +36,9 @@ namespace MyOwnList
         {
             get
             {
+
                 if (!IsValidCapacity(index))
+
                 {
                     throw new IndexOutOfRangeException("Invalid index");
                 }
@@ -43,7 +47,9 @@ namespace MyOwnList
             }
             set
             {
+
                 if (!IsValidCapacity(index))
+
                 {
                     throw new IndexOutOfRangeException("Invalid index");
                 }
@@ -54,6 +60,7 @@ namespace MyOwnList
 
         public void Add(T item)
         {
+
             if (!IsValidCapacity(Count))
             {
                 ResizeUp();
@@ -68,8 +75,6 @@ namespace MyOwnList
             Count = 0;
             array = new T[8];
         }
-
-
 
         public override string ToString()
         {
@@ -230,7 +235,6 @@ namespace MyOwnList
             }
         }
 
-
         private void ResizeUp()
         {
             array = new T[(int)(Capacity * 1.3 + 1)];
@@ -245,7 +249,7 @@ namespace MyOwnList
         {
             return index >= 0 && index < Count;
         }
-
+        
         private void Swap(ref T a, ref T b)
         {
             T temp = a;
