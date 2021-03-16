@@ -32,17 +32,13 @@ namespace MyOwnList.Test
                 new MyList<int>() { -2, 34, 5, 6, 57, 68, 65 } };
         }
 
-        [TestCaseSource(nameof(DataDelPosThrowExceptionTest))]
-        public void DelPos_WhenIndexOutOfRange_ShouldThrowArgumentOutOfRangeException(
-            MyList<int> inputList)
+        [Test]
+        public void DelPos_WhenIndexOutOfRange_ShouldThrowArgumentOutOfRangeException()
         {
+            MyList<int> inputList = new MyList<int>();
+
             Assert.Throws<ArgumentOutOfRangeException>(() =>
                 inputList.DelEnd());
-        }
-
-        private static IEnumerable<object[]> DataDelPosThrowExceptionTest()
-        {
-            yield return new object[] { new MyList<int>() };
         }
     }
 }
