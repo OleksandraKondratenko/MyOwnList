@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace MyOwnList
 {
-    public class MyList<T>: MyOwnList.IList<T>, IEnumerable<T> where T : IComparable
+    public class MyList<T>: IList<T>, IEnumerable<T> where T : IComparable
     {
         private T[] array;
 
