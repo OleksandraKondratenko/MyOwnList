@@ -57,7 +57,7 @@ namespace MyOwnList
 
             if (!IsValidCapacity(Count))
             {
-                ResizeUp();
+                Resize();
             }
 
             array[Count] = item;
@@ -93,7 +93,7 @@ namespace MyOwnList
                     }
                     else
                     {
-                        ResizeUp();
+                        Resize();
                         i--;
                     }
                 }
@@ -225,7 +225,7 @@ namespace MyOwnList
             }
         }
 
-        private void ResizeUp()
+        private void Resize()
         {
             array = new T[(int)(Capacity * 1.3 + 1)];
         }
