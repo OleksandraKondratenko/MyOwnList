@@ -8,7 +8,7 @@ namespace MyOwnList.Test
         MyList<int> myList = new MyList<int>();
 
         [TestCaseSource(nameof(DataAddPosTest))]
-        public void AddPos_WhenInputValue_ShouldAddItToCollection(int pos, int value, 
+        public void AddPos_WhenInputValue_ShouldAddItToCollection(int pos, int value,
             MyList<int> result, MyList<int> expected)
         {
             result.AddPos(pos, value);
@@ -18,12 +18,12 @@ namespace MyOwnList.Test
 
         private static IEnumerable<object[]> DataAddPosTest()
         {
-            yield return new object[] { 3, 10, new MyList<int>() { 1, 2, 3, 4, 5, 6 }, 
-            new MyList<int>() { 1, 2, 3, 10, 4, 5, 6 } };
+            yield return new object[] { 3, 10, new MyList<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+            new MyList<int>() { 1, 2, 3, 10, 4, 5, 6, 7, 8, 9, 10 } };
         }
 
         [TestCaseSource(nameof(DataAddStartTest))]
-        public void AddStart_WhenInputValue_ShouldAddItToCollection( int value,
+        public void AddStart_WhenInputValue_ShouldAddItToCollection(int value,
             MyList<int> result, MyList<int> expected)
         {
             result.AddStart(value);
@@ -53,7 +53,7 @@ namespace MyOwnList.Test
         }
 
         [TestCaseSource(nameof(DataMaxPosTest))]
-        public void MaxPos_WhenInputIsValued_ShouldFindIndexMaxElement( MyList<int> result, int posExpected)
+        public void MaxPos_WhenInputIsValued_ShouldFindIndexMaxElement(MyList<int> result, int posExpected)
         {
             int posResult = result.MaxPos();
 
@@ -102,6 +102,20 @@ namespace MyOwnList.Test
         private static IEnumerable<object[]> DataMinTest()
         {
             yield return new object[] { new MyList<int>() { 1, 2, 10, 0, 4, 5, 6 }, 0 };
+        }
+
+        [TestCaseSource(nameof(DataAddRangeByIndexTest))]
+        public void AddRangeByIndex_WhenInputIsValued_ShouldAddItToCollection(int pos, IEnumerable<int> collection,
+            MyList<int> result, MyList<int> expected)
+        {
+            result.AddRangeByIndex(pos, collection);
+
+            CollectionAssert.AreEqual(expected, result);
+        }
+        private static IEnumerable<object[]> DataAddRangeByIndexTest()
+        {
+            yield return new object[] { 3, new MyList<int>(){ 30,40,50}, new MyList<int>() { 1, 2, 3, 4, 5, 6 },
+            new MyList<int>() { 1, 2, 3, 30, 40, 50, 4, 5, 6 } };
         }
     }
 }

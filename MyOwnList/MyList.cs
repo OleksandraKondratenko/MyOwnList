@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MyOwnList
 {
-    public class MyList<T>: MyOwnList.IList<T>, IEnumerable<T> where T : IComparable
+    public class MyList<T> : MyOwnList.IList<T>, IEnumerable<T> where T : IComparable
     {
         private T[] array;
 
@@ -20,7 +21,7 @@ namespace MyOwnList
             }
         }
         public int Count { get; private set; }
-        
+
 
         public MyList()
         {
@@ -36,7 +37,7 @@ namespace MyOwnList
                 {
                     return array[index];
                 }
-                
+
                 throw new IndexOutOfRangeException("Invalid index");
             }
             set
@@ -82,20 +83,18 @@ namespace MyOwnList
 
         public void AddPos(int pos, T val)
         {
-            ++Count;
-            if ( IsValidCount(pos) )
+            if (IsValidCount(pos))
             {
+                ++Count;
+                if (Count >= Capacity)
+                {
+                    Resize();
+                }
                 for (int i = Count - 1; i > pos; i--)
                 {
-                    if (i != (Capacity - 1))
-                    {
-                        array[i] = array[i - 1];
-                    }
-                    else
-                    {
-                        Resize();
-                        i--;
-                    }
+
+                    array[i] = array[i - 1];
+
                 }
                 array[pos] = val;
             }
@@ -220,10 +219,42 @@ namespace MyOwnList
             }
         }
 
+        public void AddRangeByIndex(int pos, IEnumerable<T> collection)
+        {
+            if (IsValidCount(pos))
+            {
+                int count = collection.Count();
+                Count += count;
+                while (Count >= Capacity)
+                {
+                    Resize();
+                }
+
+                for (int i = Count - 1; i > pos; i--)
+                {
+                    array[i] = array[i - count];
+                }
+
+                foreach (var item in collection)
+                {
+                    array[pos] = item;
+                    ++pos;
+                }
+
+            }
+        }
+
         private void Resize()
         {
-            array = Capacity<=Count?new T[(int)(Capacity * 1.3 + 1)]: new T[(int)(Capacity * 0.7)];
+            T[] temp = array;
+           // array = new T[(int)(Capacity * 1.3 + 1)];
 
+            array = Capacity <= Count ? new T[(int)(Capacity * 1.3 + 1)] : new T[(int)(Capacity * 0.7)];
+
+            for (int i = 0; i < temp.Length; i++)
+            {
+                array[i] = temp[i];
+            }
         }
 
         private bool IsValidCapacity(int index)
@@ -233,9 +264,9 @@ namespace MyOwnList
 
         private bool IsValidCount(int index)
         {
-            return index >= 0 && index < Count+1;
+            return index >= 0 && index < Count + 1;
         }
-        
+
         private void Swap(ref T a, ref T b)
         {
             T temp = a;
