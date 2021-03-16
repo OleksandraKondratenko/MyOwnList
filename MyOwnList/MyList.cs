@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace MyOwnList
 {
@@ -59,7 +57,7 @@ namespace MyOwnList
 
             if (!IsValidCapacity(Count))
             {
-                ResizeUp();
+                Resize();
             }
 
             array[Count] = item;
@@ -95,7 +93,7 @@ namespace MyOwnList
                     }
                     else
                     {
-                        ResizeUp();
+                        Resize();
                         i--;
                     }
                 }
@@ -106,11 +104,6 @@ namespace MyOwnList
         public void AddStart(T val)
         {
             AddPos(0, val);
-        }
-
-        public void AddEnd(T val)
-        {
-            Add(val);
         }
 
         public T DelPos(int pos)
@@ -227,9 +220,10 @@ namespace MyOwnList
             }
         }
 
-        private void ResizeUp()
+        private void Resize()
         {
-            array = new T[(int)(Capacity * 1.3 + 1)];
+            array = Capacity<=Count?new T[(int)(Capacity * 1.3 + 1)]: new T[(int)(Capacity * 0.7)];
+
         }
 
         private bool IsValidCapacity(int index)
