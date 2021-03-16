@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MyOwnList
 {
-     public interface IList<T> : IEnumerable<int>
+     public interface IList<T>
     {
         void Clear();
         String ToString();

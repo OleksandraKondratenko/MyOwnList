@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MyOwnList
 {
-    public class MyList<T>: MyOwnList.IList<T> where T : IComparable
+    public class MyList<T>: MyOwnList.IList<T>, IEnumerable<T> where T : IComparable
     {
         private T[] array;
 
@@ -24,7 +24,7 @@ namespace MyOwnList
         public int Count { get; private set; }
         
 
-        public MyList(MyList<int> list0)
+        public MyList()
         {
             Count = 0;
             array = new T[8];
@@ -34,14 +34,12 @@ namespace MyOwnList
         {
             get
             {
-
-                if (!IsValidCapacity(index))
-
+                if (index < Count)
                 {
-                    throw new IndexOutOfRangeException("Invalid index");
+                    return array[index];
                 }
-
-                return array[index];
+                
+                throw new IndexOutOfRangeException("Invalid index");
             }
             set
             {
@@ -86,27 +84,23 @@ namespace MyOwnList
 
         public void AddPos(int pos, T val)
         {
-            T temp;
-
-            for (int i = pos; i < Count; i++)
-            {
-                if (i != (Capacity - 1))
-                {
-                    temp = array[pos];
-                    array[pos] = val;
-                    val = array[pos + 1];
-                    ++pos;
-                    array[pos] = temp;
-                    ++pos;
-                }
-                else
-                {
-                    ResizeUp();
-                    i--;
-                }
-            }
-
             ++Count;
+            if ( IsValidCount(pos) )
+            {
+                for (int i = Count - 1; i > pos; i--)
+                {
+                    if (i != (Capacity - 1))
+                    {
+                        array[i] = array[i - 1];
+                    }
+                    else
+                    {
+                        ResizeUp();
+                        i--;
+                    }
+                }
+                array[pos] = val;
+            }
         }
 
         public void AddStart(T val)
@@ -245,7 +239,7 @@ namespace MyOwnList
 
         private bool IsValidCount(int index)
         {
-            return index >= 0 && index < Count;
+            return index >= 0 && index < Count+1;
         }
         
         private void Swap(ref T a, ref T b)
@@ -255,14 +249,20 @@ namespace MyOwnList
             b = temp;
         }
 
-        public IEnumerator<int> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < Count; i++)
+            {
+                yield return array[i];
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < Count; i++)
+            {
+                yield return array[i];
+            }
         }
     }
 }
