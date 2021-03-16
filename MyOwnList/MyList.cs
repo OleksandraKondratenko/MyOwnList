@@ -24,7 +24,7 @@ namespace MyOwnList
         public int Count { get; private set; }
         
 
-        public MyList(MyList<int> list0)
+        public MyList()
         {
             Count = 0;
             array = new T[8];
@@ -262,7 +262,7 @@ namespace MyOwnList
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return array.GetEnumerator();
         }
     }
 }
