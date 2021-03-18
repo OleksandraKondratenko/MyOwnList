@@ -10,7 +10,6 @@ namespace MyOwnList
         String ToString();
         T[] ToArray();
         void AddStart(T val);
-        void AddEnd(T val);
         void AddPos(int pos, T val);
         T DelPos(int pos);
         T DelStart();
