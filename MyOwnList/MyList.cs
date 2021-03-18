@@ -318,11 +318,11 @@ namespace MyOwnList
             T[] temp = array;
             while (Count >= Capacity)
             {
-                array= new T[(int)(Capacity * 1.3 + 1)]
+                array = new T[(int)(Capacity * 1.3 + 1)];
             }
             while (Capacity > Count * 1.33 + 1)
             {
-                array=
+                array= new T[(int)(Capacity * 0.7 + 1)];
             }
                // array = (Capacity <= Count) ? new T[(int)(Capacity * 1.3 + 1)] : new T[(int)(Capacity * 0.7+1)];
 
