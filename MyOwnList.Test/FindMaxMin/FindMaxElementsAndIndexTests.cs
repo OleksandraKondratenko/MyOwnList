@@ -8,7 +8,7 @@ namespace MyOwnList.Test.FindMaxMin
         [TestCaseSource(nameof(DataMaxPosTest))]
         public void MaxPos_WhenInputIsValued_ShouldFindIndexMaxElement(MyList<int> result, int posExpected)
         {
-            int posResult = result.MaxPos();
+            int posResult = result.GetMaxIndex();
 
             Assert.AreEqual(posExpected, posResult);
         }
@@ -21,7 +21,7 @@ namespace MyOwnList.Test.FindMaxMin
         [TestCaseSource(nameof(DataMaxTest))]
         public void Max_WhenInputIsValued_ShouldFindMaxElement(MyList<int> result, int posExpected)
         {
-            int posResult = result.Max();
+            int posResult = result.GetMax();
 
             Assert.AreEqual(posExpected, posResult);
         }

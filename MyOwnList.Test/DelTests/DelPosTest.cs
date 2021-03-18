@@ -11,7 +11,7 @@ namespace MyOwnList.Test
         public void DelPos_WhenValidIndexPassed_ShouldDeleteElementByPosition(
             int index, int expectedElement, MyList<int> inputList, MyList<int> expectedList)
         {
-            int actualElement = inputList.DelPos(index);
+            int actualElement = inputList.RemoveByIndex(index);
 
             Assert.AreEqual(expectedElement, actualElement);
             CollectionAssert.AreEqual(expectedList, inputList);
@@ -37,7 +37,7 @@ namespace MyOwnList.Test
             int index, MyList<int> inputList)
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
-                inputList.DelPos(index));
+                inputList.RemoveByIndex(index));
         }
 
         private static IEnumerable<object[]> DataDelPosWrongIndexTest()

@@ -10,7 +10,7 @@ namespace MyOwnList.Test
         public void DelEnd_WhenValidIndexPassed_ShouldDeleteLastElement(
             int expectedElement, MyList<int> inputList, MyList<int> expectedList)
         {
-            int actualElement = inputList.DelEnd();
+            int actualElement = inputList.Remove();
 
             Assert.AreEqual(expectedElement, actualElement);
             CollectionAssert.AreEqual(expectedList, inputList);
@@ -34,7 +34,7 @@ namespace MyOwnList.Test
             MyList<int> inputList = new MyList<int>();
 
             Assert.Throws<ArgumentOutOfRangeException>(() =>
-                inputList.DelEnd());
+                inputList.Remove());
         }
     }
 }
