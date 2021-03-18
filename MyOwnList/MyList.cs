@@ -139,6 +139,58 @@ namespace MyOwnList
             return DelPos(Count - 1);
         }
 
+        public void DelPosRange(int quanity)
+        {
+
+        }
+
+        public void DelStartRange(int quantity)
+        {
+
+        }
+
+        public void DelEndRange(int quantity)//Check equality to zero
+        {
+            Count = (quantity < Count) ? Count - quantity : 0;
+
+            while (Capacity > (int)(Count * 1.33 + 1))
+            {
+                Resize();
+            }
+        }
+
+        public int DelByValueFirst(T value)
+        {
+            int i;//
+
+            for (i = 0; i < Count; i++)
+            {
+                if (array[i].CompareTo(value) == 0)
+                {
+                    DelPos(i);
+                    break;
+                }
+            }
+
+            return i;
+        }
+
+        public int DelByValueAll(T value)
+        {
+            int counter = 0;
+
+            for (int i = 0; i < Count; i++)
+            {
+                if (array[i].CompareTo(value) == 0)
+                {
+                    DelPos(i);
+                    ++counter;
+                }
+            }
+
+            return counter;
+        }
+
         public int MinPos()
         {
             int minIndex = 0;
@@ -261,6 +313,19 @@ namespace MyOwnList
             {
                 yield return array[i];
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is MyList<T> list &&
+                   EqualityComparer<T[]>.Default.Equals(array, list.array) &&
+                   Capacity == list.Capacity &&
+                   Count == list.Count;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(array, Capacity, Count);
         }
     }
 }
