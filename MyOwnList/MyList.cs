@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MyOwnList
 {
-    public class MyList<T>: IList<T>, IEnumerable<T> where T : IComparable
+    public class MyList<T> : IList<T>, IEnumerable<T> where T : IComparable
     {
         private T[] array;
 
@@ -20,7 +20,7 @@ namespace MyOwnList
             }
         }
         public int Count { get; private set; }
-        
+
 
         public MyList()
         {
@@ -36,7 +36,7 @@ namespace MyOwnList
                 {
                     return array[index];
                 }
-                
+
                 throw new IndexOutOfRangeException("Invalid index");
             }
             set
@@ -83,7 +83,7 @@ namespace MyOwnList
         public void AddPos(int pos, T val)
         {
             ++Count;
-            if ( IsValidCount(pos) )
+            if (IsValidCount(pos))
             {
                 for (int i = Count - 1; i > pos; i--)
                 {
@@ -237,9 +237,9 @@ namespace MyOwnList
 
         private bool IsValidCount(int index)
         {
-            return index >= 0 && index < Count+1;
+            return index >= 0 && index <= Count - 1;
         }
-        
+
         private void Swap(ref T a, ref T b)
         {
             T temp = a;
