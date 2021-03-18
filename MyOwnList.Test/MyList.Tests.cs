@@ -12,7 +12,7 @@ namespace MyOwnList.Test
         public void AddPos_WhenInputValue_ShouldAddItToCollection(int pos, int value,
             MyList<int> result, MyList<int> expected)
         {
-            result.AddPos(pos, value);
+            result.AddByIndex(pos, value);
 
             CollectionAssert.AreEqual(expected, result);
         }

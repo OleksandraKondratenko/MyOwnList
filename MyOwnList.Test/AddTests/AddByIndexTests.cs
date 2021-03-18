@@ -12,7 +12,7 @@ namespace MyOwnList.Test.AddByIndex
         public void AddPos_WhenInputValue_ShouldAddItToCollection(
             int pos, int value, MyList<int> result, MyList<int> expected)
         {
-            result.AddPos(pos, value);
+            result.AddByIndex(pos, value);
 
             CollectionAssert.AreEqual(expected, result);
         }
@@ -24,7 +24,7 @@ namespace MyOwnList.Test.AddByIndex
         {
             MyList<int> result = new MyList<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
-            Assert.Throws<ArgumentException>(()=>result.AddPos(pos,value));
+            Assert.Throws<ArgumentException>(()=>result.AddByIndex(pos,value));
         }
 
         private static IEnumerable<object[]> DataAddPosTest()

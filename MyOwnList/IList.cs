@@ -10,17 +10,17 @@ namespace MyOwnList
         String ToString();
         T[] ToArray();
         void AddStart(T val);
-        void AddPos(int pos, T val);
-        T DelPos(int pos);
-        T DelStart();
-        T DelEnd();
-        int MaxPos();
-        T Max();
-        int MinPos();
-        T Min();
+        void AddByIndex(int pos, T val);
+        T RemoveByIndex(int pos);
+        T RemoveStart();
+        T Remove();
+        int GetMaxIndex();
+        T GetMax();
+        int GetMinIndex();
+        T GetMin();
         void Set(int pos, T val);
         T Get(int pos);
-        void Sort();
+        void SortAscending();
         void Reverse();
         void HalfReverse();
     }
