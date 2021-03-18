@@ -9,9 +9,9 @@ namespace MyOwnList.Test
     {
         [TestCaseSource(nameof(DataDelPosValidTest))]
         public void DelPos_WhenValidIndexPassed_ShouldDeleteElementByPosition(
-            int deletedPosition, int expectedElement, MyList<int> inputList, MyList<int> expectedList)
+            int index, int expectedElement, MyList<int> inputList, MyList<int> expectedList)
         {
-            int actualElement = inputList.DelPos(deletedPosition);
+            int actualElement = inputList.DelPos(index);
 
             Assert.AreEqual(expectedElement, actualElement);
             CollectionAssert.AreEqual(expectedList, inputList);
@@ -32,13 +32,20 @@ namespace MyOwnList.Test
                 new MyList<int>() { -2, 34, 5, 6, 57, 68, 65 } };
         }
 
-        [Test]
-        public void DelPos_WhenIndexOutOfRange_ShouldThrowArgumentOutOfRangeException()
+        [TestCaseSource(nameof(DataDelPosWrongIndexTest))]
+        public void DelPos_WhenIndexOutOfRange_ShouldThrowArgumentOutOfRangeException(
+            int index, MyList<int> inputList)
         {
-            MyList<int> inputList = new MyList<int>();
-
             Assert.Throws<ArgumentOutOfRangeException>(() =>
-                inputList.DelEnd());
+                inputList.DelPos(index));
+        }
+
+        private static IEnumerable<object[]> DataDelPosWrongIndexTest()
+        {
+            yield return new object[] { -1, new MyList<int>() { -2, 34, 5, 6 } };
+            yield return new object[] { 0, new MyList<int>() };
+            yield return new object[] { 4, new MyList<int>() { -2, 34, 5, 6 } };
+            yield return new object[] { 10, new MyList<int>() { -2, 34, 5, 6 } };
         }
     }
 }
