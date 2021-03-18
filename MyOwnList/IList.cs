@@ -4,13 +4,12 @@ using System.Collections.Generic;
 
 namespace MyOwnList
 {
-     public interface IList<T> : IEnumerable<int>
+     public interface IList<T>
     {
         void Clear();
         String ToString();
         T[] ToArray();
         void AddStart(T val);
-        void AddEnd(T val);
         void AddPos(int pos, T val);
         T DelPos(int pos);
         T DelStart();
