@@ -28,6 +28,18 @@ namespace MyOwnList
             Count = 0;
             array = new T[8];
         }
+        public MyList(T val)
+        {
+            Count = 0;
+            array = new T[8];
+            Add(val);
+        }
+        public MyList(MyList<T> collection)
+        {
+            Count = 0;
+            array = new T[8];
+            AddRange(collection);
+        }
 
         public T this[int index]
         {
@@ -73,12 +85,23 @@ namespace MyOwnList
 
         public override string ToString()
         {
-            return array.ToString();
+            string s = "";
+
+            for (int i = 0; i < Count; i++)
+            {
+                s += array[i];
+            }
+            return s;
         }
 
         public T[] ToArray()
         {
-            return array;
+            T[] arrayNew = new T[Count];
+            for (int i = 0; i < Count; i++)
+            {
+                arrayNew[i] = array[i];
+            }
+            return arrayNew;
         }
 
         public void AddPos(int pos, T val)
@@ -97,6 +120,10 @@ namespace MyOwnList
 
                 }
                 array[pos] = val;
+            }
+            else
+            {
+                throw new ArgumentException();
             }
         }
 
@@ -198,7 +225,35 @@ namespace MyOwnList
 
         public void Sort()
         {
-            Array.Sort(array);
+            T current;
+            int index;
+
+            for (int i = 1; i < Count; i++)
+            {
+                current = array[i];
+                index = i;
+                while (index > 0 && array[index - 1].CompareTo(current)==1)
+                {
+                    Swap(ref array[index - 1], ref array[index]);
+                    index--;
+                }
+            }
+        }
+        public void SortDescending()
+        {
+            T current;
+            int index;
+
+            for (int i = 1; i < Count; i++)
+            {
+                current = array[i];
+                index = i;
+                while (index > 0 && array[index - 1].CompareTo(current) == -1)
+                {
+                    Swap(ref array[index - 1], ref array[index]);
+                    index--;
+                }
+            }
         }
 
         public void Reverse()
@@ -219,12 +274,12 @@ namespace MyOwnList
             }
         }
 
-        public void AddRangeByIndex(int pos, IEnumerable<T> collection)
+        public void AddRangeByIndex(int pos, MyList<T> collection)
         {
+            int count = collection.Count();
+            Count += count;
             if (IsValidCount(pos))
             {
-                int count = collection.Count();
-                Count += count;
                 while (Count >= Capacity)
                 {
                     Resize();
@@ -232,7 +287,10 @@ namespace MyOwnList
 
                 for (int i = Count - 1; i > pos; i--)
                 {
-                    array[i] = array[i - count];
+                    if (i >= count)
+                    {
+                        array[i] = array[i - count];
+                    }
                 }
 
                 foreach (var item in collection)
@@ -240,16 +298,33 @@ namespace MyOwnList
                     array[pos] = item;
                     ++pos;
                 }
-
+            }
+            else
+            {
+                throw new ArgumentException();
             }
         }
+        public void AddRangeStartPos(MyList<T> collection)
+        {
+            AddRangeByIndex(0, collection);
+        }
 
+        public void AddRange(MyList<T> collection)
+        {
+            AddRangeByIndex(Count, collection);
+        }
         private void Resize()
         {
             T[] temp = array;
-           // array = new T[(int)(Capacity * 1.3 + 1)];
-
-            array = Capacity <= Count ? new T[(int)(Capacity * 1.3 + 1)] : new T[(int)(Capacity * 0.7)];
+            while (Count >= Capacity)
+            {
+                array= new T[(int)(Capacity * 1.3 + 1)]
+            }
+            while (Capacity > Count * 1.33 + 1)
+            {
+                array=
+            }
+               // array = (Capacity <= Count) ? new T[(int)(Capacity * 1.3 + 1)] : new T[(int)(Capacity * 0.7+1)];
 
             for (int i = 0; i < temp.Length; i++)
             {
@@ -264,7 +339,7 @@ namespace MyOwnList
 
         private bool IsValidCount(int index)
         {
-            return index >= 0 && index < Count + 1;
+            return index >= 0 && index < Count - 1;
         }
 
         private void Swap(ref T a, ref T b)
