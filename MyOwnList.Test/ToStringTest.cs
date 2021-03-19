@@ -16,7 +16,7 @@ namespace MyOwnList.Test
         private static IEnumerable<object[]> DataToStringTest()
         {
             yield return new object[] { new MyList<int>() { 6, 7, 2, 1 ,5, 3, 4, 10, 8, 9 },
-                "67215341089" };
+                "6 7 2 1 5 3 4 10 8 9" };
         }
     }
 }
