@@ -1,14 +1,13 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MyOwnList.Test
 {
-    class DellStartTest
+    class RemoveStartTest
     {
-        [TestCaseSource(nameof(DataDelStarttValidTest))]
-        public void DelStart_WhenValidIndexPassed_ShouldDeleteFirstElement(
+        [TestCaseSource(nameof(DataRemoveStartValidTest))]
+        public void RemoveStart_WhenValidIndexPassed_ShouldDeleteFirstElement(
             int expectedElement, MyList<int> inputList, MyList<int> expectedList)
         {
             int actualElement = inputList.RemoveStart();
@@ -17,7 +16,7 @@ namespace MyOwnList.Test
             CollectionAssert.AreEqual(expectedList, inputList);
         }
 
-        private static IEnumerable<object[]> DataDelStarttValidTest()
+        private static IEnumerable<object[]> DataRemoveStartValidTest()
         {
             yield return new object[] { -2, new MyList<int>() { -2, 34, 5, 6, 57, 68, 65, -17 },
                 new MyList<int>() { 34, 5, 6, 57, 68, 65, -17 } };
@@ -30,11 +29,11 @@ namespace MyOwnList.Test
         }
 
         [Test]
-        public void DelStart_WhenIndexOutOfRange_ShouldThrowArgumentOutOfRangeException()
+        public void RemoveStart_WhenIndexOutOfRange_ShouldThrowArgumentOutOfRangeException()
         {
             MyList<int> inputList = new MyList<int>() { };
 
-            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            Assert.Throws<InvalidOperationException>(() =>
                 inputList.Remove());
         }
     }

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace MyOwnList.Test
 {
-    class DelEndTest
+    class RemoveTest
     {
-        [TestCaseSource(nameof(DataDelEndValidTest))]
-        public void DelEnd_WhenValidIndexPassed_ShouldDeleteLastElement(
+        [TestCaseSource(nameof(DataRemoveValidTest))]
+        public void Remove_WhenValidIndexPassed_ShouldDeleteLastElement(
             int expectedElement, MyList<int> inputList, MyList<int> expectedList)
         {
             int actualElement = inputList.Remove();
@@ -16,7 +16,7 @@ namespace MyOwnList.Test
             CollectionAssert.AreEqual(expectedList, inputList);
         }
 
-        private static IEnumerable<object[]> DataDelEndValidTest()
+        private static IEnumerable<object[]> DataRemoveValidTest()
         {
             yield return new object[] { -17, new MyList<int>() { 2, 34, 5, 6, 57, 68, 65, -17 },
                 new MyList<int>() { 2, 34, 5, 6, 57, 68, 65 } };
@@ -29,11 +29,11 @@ namespace MyOwnList.Test
         }
 
         [Test]
-        public void DelEnd_WhenIndexOutOfRange_ShouldThrowArgumentOutOfRangeException()
+        public void Remove_WhenIndexOutOfRange_ShouldThrowArgumentOutOfRangeException()
         {
             MyList<int> inputList = new MyList<int>();
 
-            Assert.Throws<ArgumentOutOfRangeException>(() =>
+            Assert.Throws<InvalidOperationException>(() =>
                 inputList.Remove());
         }
     }

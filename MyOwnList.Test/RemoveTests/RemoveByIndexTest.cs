@@ -5,10 +5,10 @@ using System.Text;
 
 namespace MyOwnList.Test
 {
-    class DelPosTest
+    class RemoveByIndexTest
     {
-        [TestCaseSource(nameof(DataDelPosValidTest))]
-        public void DelPos_WhenValidIndexPassed_ShouldDeleteElementByPosition(
+        [TestCaseSource(nameof(DataRemoveByIndexValidTest))]
+        public void RemoveByIndex_WhenValidIndexPassed_ShouldDeleteElementByPosition(
             int index, int expectedElement, MyList<int> inputList, MyList<int> expectedList)
         {
             int actualElement = inputList.RemoveByIndex(index);
@@ -17,7 +17,7 @@ namespace MyOwnList.Test
             CollectionAssert.AreEqual(expectedList, inputList);
         }
 
-        private static IEnumerable<object[]> DataDelPosValidTest()
+        private static IEnumerable<object[]> DataRemoveByIndexValidTest()
         {
             yield return new object[] { 0, -2, new MyList<int>() { -2, 34, 5, 6, 57, 68, 65, -17 },
                 new MyList<int>() { 34, 5, 6, 57, 68, 65, -17 } };
@@ -32,15 +32,15 @@ namespace MyOwnList.Test
                 new MyList<int>() { -2, 34, 5, 6, 57, 68, 65 } };
         }
 
-        [TestCaseSource(nameof(DataDelPosWrongIndexTest))]
-        public void DelPos_WhenIndexOutOfRange_ShouldThrowArgumentOutOfRangeException(
+        [TestCaseSource(nameof(DataRemoveByIndexWrongIndexTest))]
+        public void RemoveByIndex_WhenIndexOutOfRange_ShouldThrowArgumentOutOfRangeException(
             int index, MyList<int> inputList)
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
                 inputList.RemoveByIndex(index));
         }
 
-        private static IEnumerable<object[]> DataDelPosWrongIndexTest()
+        private static IEnumerable<object[]> DataRemoveByIndexWrongIndexTest()
         {
             yield return new object[] { -1, new MyList<int>() { -2, 34, 5, 6 } };
             yield return new object[] { 0, new MyList<int>() };
