@@ -17,6 +17,7 @@ namespace MyOwnList.Test.AddTests
         {
             yield return new object[] { new MyList<int>(){ 30, 40, 50}, new MyList<int>() { 1, 2, 3, 4, 5, 6 },
                 new MyList<int>() { 30, 40, 50, 1, 2, 3, 4, 5, 6 } };
+            yield return new object[] { new MyList<int>(){ 30, 40, 50}, new MyList<int>(), new MyList<int>() { 30, 40, 50} };
         }
     }
 }

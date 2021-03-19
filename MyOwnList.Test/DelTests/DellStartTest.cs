@@ -11,7 +11,7 @@ namespace MyOwnList.Test
         public void DelStart_WhenValidIndexPassed_ShouldDeleteFirstElement(
             int expectedElement, MyList<int> inputList, MyList<int> expectedList)
         {
-            int actualElement = inputList.DelStart();
+            int actualElement = inputList.RemoveStart();
 
             Assert.AreEqual(expectedElement, actualElement);
             CollectionAssert.AreEqual(expectedList, inputList);
@@ -34,8 +34,8 @@ namespace MyOwnList.Test
         {
             MyList<int> inputList = new MyList<int>() { };
 
-            Assert.Throws<ArgumentOutOfRangeException>(() =>
-                inputList.DelEnd());
+            Assert.Throws<InvalidOperationException>(() =>
+                inputList.Remove());
         }
     }
 }

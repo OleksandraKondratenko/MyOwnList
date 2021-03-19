@@ -18,6 +18,8 @@ namespace MyOwnList.Test.AddTests
         {
             yield return new object[] { 3, new MyList<int>(){ 30, 40, 50}, new MyList<int>() { 1, 2, 3, 4, 5, 6 },
                 new MyList<int>() { 1, 2, 3, 30, 40, 50, 4, 5, 6 } };
+            yield return new object[] { 0, new MyList<int>(){ 30, 40, 50}, new MyList<int>(),
+                new MyList<int>() { 30, 40, 50} };
         }
 
 
@@ -32,6 +34,7 @@ namespace MyOwnList.Test.AddTests
         {
             yield return new object[] { -1, new MyList<int>() { 30, 40, 50 }, new MyList<int>() { 1, 2, 3, 4, 5, 6 } };
             yield return new object[] { 25, new MyList<int>() { 30, 40, 50 }, new MyList<int>() { 1, 2, 3, 4, 5, 6 } };
+            yield return new object[] { 5, new MyList<int>(){ 30, 40, 50}, new MyList<int>()};
         }
     }
 }

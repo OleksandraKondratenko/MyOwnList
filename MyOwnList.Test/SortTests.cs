@@ -9,7 +9,7 @@ namespace MyOwnList.Test
         public void Sort_WhenCollectionIsUnsorted_ShouldSortCollection(
            MyList<int> result, MyList<int> expected)
         {
-            result.Sort();
+            result.SortAscending();
 
             CollectionAssert.AreEqual(expected, result);
         }
