@@ -34,8 +34,7 @@ namespace MyOwnList.Test.RemoveTests
         public void RemoveByIndex_WhenIndexOutOfRange_ShouldThrowInvalidOperationException(
             int quantity, MyList<int> inputList)
         {
-            Assert.Throws<InvalidOperationException>(() =>
-                inputList.RemoveRangeStart(quantity));
+            Assert.Throws<InvalidOperationException>(() => inputList.RemoveRangeStart(quantity));
         }
 
         private static IEnumerable<object[]> DataRemoveRangeStartWrongQuantityTest()

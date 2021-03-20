@@ -108,6 +108,7 @@ namespace MyOwnList
         public void AddByIndex(int index, T value)
         {
             ++Length;
+
             if (IsValidLength(index))
             {
                 Resize();
@@ -118,16 +119,18 @@ namespace MyOwnList
                 }
 
                 _array[index] = value;
+
+                return;
             }
-            else
-            {
-                throw new IndexOutOfRangeException();
-            }
+
+
+            throw new IndexOutOfRangeException();
         }
 
         public void AddStart(T value)
         {
             int index = 0;
+
             AddByIndex(index, value);
         }
 
@@ -141,12 +144,9 @@ namespace MyOwnList
             {
                 Resize();
 
-                for (int i = Length - 1; i > index; i--)
+                for (int i = Length - 1; i > index && i >= count; i--)
                 {
-                    if (i >= count)
-                    {
-                        _array[i] = _array[i - count];
-                    }
+                    _array[i] = _array[i - count];
                 }
 
                 foreach (var item in collection)
@@ -292,7 +292,7 @@ namespace MyOwnList
 
             for (int i = 0; i < Length; i++)
             {
-                if(_array[i].CompareTo(value) == 0)
+                if (_array[i].CompareTo(value) == 0)
                 {
                     index = i;
                     break;
@@ -308,7 +308,7 @@ namespace MyOwnList
             {
                 int minIndex = 0;
 
-                for (int i = 1; i < Length ; i++)
+                for (int i = 1; i < Length; i++)
                 {
                     if (_array[minIndex].CompareTo(_array[i]) == 1)
                     {
@@ -319,7 +319,7 @@ namespace MyOwnList
                 return minIndex;
             }
             throw new InvalidOperationException();
-            
+
         }
 
         public int GetMaxIndex()
@@ -410,11 +410,18 @@ namespace MyOwnList
 
         public void HalfReverse()
         {
-            int k = Length / 2 + Length % 2;
-
-            for (int i = 0; i < Length / 2; i++)
+            if (_array != null)
             {
-                Swap(ref _array[i], ref _array[k + i]);
+                int k = Length / 2 + Length % 2;
+
+                for (int i = 0; i < Length / 2; i++)
+                {
+                    Swap(ref _array[i], ref _array[k + i]);
+                }
+            }
+            else
+            {
+                throw new NullReferenceException("Array is null");
             }
         }
 
@@ -458,7 +465,7 @@ namespace MyOwnList
 
         private bool IsValidLength(int index)
         {
-                return index >= 0 && index <= Length - 1;
+            return index >= 0 && index <= Length - 1;
         }
 
         private void Swap(ref T a, ref T b)

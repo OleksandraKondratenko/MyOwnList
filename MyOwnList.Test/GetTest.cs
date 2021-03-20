@@ -16,20 +16,19 @@ namespace MyOwnList.Test
             Assert.AreEqual(expected, actual);
         }
 
-        private static IEnumerable<object[]> DataGetValidTest()
-        {
-            yield return new object[] { 0, -2, new MyList<int>() { -2, 34, 5, 6, 57, 68, 65, -17 }};
-            yield return new object[] { 1, 34, new MyList<int>() { -2, 34, 5, 6, 57, 68, 65, -17 } };
-            yield return new object[] { 4, 57, new MyList<int>() { -2, 34, 5, 6, 57, 68, 65, -17 } };
-            yield return new object[] { 7, -17, new MyList<int>() { -2, 34, 5, 6, 57, 68, 65, -17 } };
-        }
-
         [TestCaseSource(nameof(DataGetWrongIndexTest))]
         public void Get_WhenIndexOutOfRange_ShouldThrowArgumentOutOfRangeException(
             int index, MyList<int> inputList)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() =>
-                inputList.Get(index));
+            Assert.Throws<ArgumentOutOfRangeException>(() => inputList.Get(index));
+        }
+
+        private static IEnumerable<object[]> DataGetValidTest()
+        {
+            yield return new object[] { 0, -2, new MyList<int>() { -2, 34, 5, 6, 57, 68, 65, -17 } };
+            yield return new object[] { 1, 34, new MyList<int>() { -2, 34, 5, 6, 57, 68, 65, -17 } };
+            yield return new object[] { 4, 57, new MyList<int>() { -2, 34, 5, 6, 57, 68, 65, -17 } };
+            yield return new object[] { 7, -17, new MyList<int>() { -2, 34, 5, 6, 57, 68, 65, -17 } };
         }
 
         private static IEnumerable<object[]> DataGetWrongIndexTest()
