@@ -382,8 +382,20 @@ namespace MyOwnList
 
         public void SortDescending()
         {
-            SortAscending();
-            Reverse();
+            T current;
+            int index;
+
+            for (int i = 1; i < Length; i++)
+            {
+                current = _array[i];
+                index = i;
+
+                while (index > 0 && _array[index - 1].CompareTo(current) == -1)
+                {
+                    Swap(ref _array[index - 1], ref _array[index]);
+                    --index;
+                }
+            }
         }
 
         public void Reverse()
@@ -431,7 +443,7 @@ namespace MyOwnList
 
             while (Length >= Capacity)
             {
-                _array = new T[(int)(Capacity * 1.3 + 1)];
+                _array = new T[Length];
 
                 for (int i = 0; i < temp.Length; i++)
                 {
