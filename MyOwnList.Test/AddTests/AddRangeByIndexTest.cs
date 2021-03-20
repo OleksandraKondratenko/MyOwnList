@@ -22,8 +22,6 @@ namespace MyOwnList.Test.AddTests
                 new MyList<int>() { 30, 40, 50} };
         }
 
-
-
         [TestCaseSource(nameof(DataAddRangeByIndexTestWithExeption))]
         public void AddRangeByIndex_WhenInpuISValued_ShouldGenerateExcaption(
           int pos, MyList<int> value, MyList<int> result)
