@@ -87,7 +87,7 @@ namespace MyOwnList
 
             for (int i = 0; i < Length; i++)
             {
-                stringBuilder.Append(_array[i]).Append(" ");
+                stringBuilder.Append($"{_array[i]} ");
             }
 
             return stringBuilder.ToString().Trim();
@@ -160,7 +160,7 @@ namespace MyOwnList
             }
         }
 
-        public void AddRangeStartPos(MyList<T> collection)
+        public void AddRangeStart(MyList<T> collection)
         {
             int index = 0;
             AddRangeByIndex(index, collection);
@@ -212,8 +212,6 @@ namespace MyOwnList
 
             throw new InvalidOperationException("MyList is empty");
         }
-
-
 
         public void RemoveRangeByIndex(int index, int quantity)
         {
@@ -286,6 +284,22 @@ namespace MyOwnList
             }
 
             return counter;
+        }
+
+        public int FindIndexByValue(T value)
+        {
+            int index = -1;
+
+            for (int i = 0; i < Length; i++)
+            {
+                if(_array[i].CompareTo(value) == 0)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            return index;
         }
 
         public int GetMinIndex()
@@ -402,19 +416,6 @@ namespace MyOwnList
             {
                 Swap(ref _array[i], ref _array[k + i]);
             }
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is MyList<T> list &&
-                   EqualityComparer<T[]>.Default.Equals(_array, list._array) &&
-                   Capacity == list.Capacity &&
-                   Length == list.Length;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(_array, Capacity, Length);
         }
 
         public IEnumerator<T> GetEnumerator()
