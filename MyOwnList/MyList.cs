@@ -443,7 +443,7 @@ namespace MyOwnList
 
             while (Length >= Capacity)
             {
-                _array = new T[Length];
+                array = new T[Length];
 
                 for (int i = 0; i < temp.Length; i++)
                 {
