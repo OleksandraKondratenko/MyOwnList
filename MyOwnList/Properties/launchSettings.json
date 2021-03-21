@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MyOwnList": {
+      "commandName": "Project",
+      "remoteDebugEnabled": false
+    }
+  }
+}

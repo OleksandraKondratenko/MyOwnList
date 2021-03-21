@@ -18,9 +18,7 @@ namespace MyOwnList
         T GetMax();
         int GetMinIndex();
         T GetMin();
-        void Set(int pos, T val);
-        T Get(int pos);
-        void SortAscending();
+        void Sort( bool isAscending);
         void Reverse();
         void HalfReverse();
     }

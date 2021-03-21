@@ -16,18 +16,25 @@ namespace MyOwnList.Test.FindMaxMin
 
         private static IEnumerable<object[]> DataMaxPosTest()
         {
-            yield return new object[] { new MyList<int>() { 1, 2, 10, 4, 5, 6 }, 2 };
+            //yield return new object[] { new MyList<int>() { 1, 2, 10, 4, 5, 6 }, 2 };
+            yield return new object[] { new MyList<int>() { 1, 2, 10, 4, 5, 50 }, 5 };
             yield return new object[] { new MyList<int>() { 1 }, 0 };
         }
 
         [TestCaseSource(nameof(DataGetMaxIndexForExeptionTest))]
-        public void GetMaxIndex_WhenInputIsNotValid_ShouldGenerateExeption(MyList<int> result)
+        public void GetMaxIndex_WhenInputIsNotValid_ShouldGenerateInvalidOperationExeption(MyList<int> result)
         {
             Assert.Throws<InvalidOperationException>(() => result.GetMaxIndex());
         }
         private static IEnumerable<object[]> DataGetMaxIndexForExeptionTest()
         {
-            yield return new object[] { new MyList<int>() };
+            yield return new object[] { new MyList<int>() };      
+        }
+
+        [TestCase(null)]
+        public void GetMaxIndex_WhenInputIsNotValid_ShouldGenerateNullReferenceExeption(MyList<int> result)
+        {
+            Assert.Throws<NullReferenceException>(() => result.GetMaxIndex());
         }
 
         [TestCaseSource(nameof(DataMaxTest))]
@@ -41,6 +48,7 @@ namespace MyOwnList.Test.FindMaxMin
         private static IEnumerable<object[]> DataMaxTest()
         {
             yield return new object[] { new MyList<int>() { 1, 2, 10, 4, 5, 6, 7, 8, 9, 6 }, 10 };
+            yield return new object[] { new MyList<int>() { 1, 2, 10, 4, 5, 50 }, 50 };
             yield return new object[] { new MyList<int>() { 1 }, 1 };
         }
     }

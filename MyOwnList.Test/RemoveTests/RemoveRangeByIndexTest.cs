@@ -30,12 +30,15 @@ namespace MyOwnList.Test.RemoveTests
                 new MyList<int>() { } };
         }
 
-        [TestCaseSource(nameof(DataRemoveRangeByIndexWrongQuantityTest))]
+        [TestCase(3, 100, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
         public void RemoveByIndex_WhenIndexOutOfRange_ShouldThrowInvalidOperationException(
-            int index, int quantity, MyList<int> inputList)
+            int index, int quantity, int[] inputList)
         {
+            MyList<int> list = new MyList<int>();
+            list.AddRange(inputList);
+
             Assert.Throws<InvalidOperationException>(() =>
-                inputList.RemoveRangeByIndex(index, quantity));
+                list.RemoveRangeByIndex(index, quantity));
         }
 
         private static IEnumerable<object[]> DataRemoveRangeByIndexWrongQuantityTest()
