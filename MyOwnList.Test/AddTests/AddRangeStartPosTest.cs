@@ -9,7 +9,7 @@ namespace MyOwnList.Test.AddTests
         public void AddRangeStartPos_WhenInputIsValued_ShouldAddItToCollection(
            MyList<int> collection, MyList<int> result, MyList<int> expected)
         {
-            result.AddRangeStartPos(collection);
+            result.AddRangeStart(collection);
 
             CollectionAssert.AreEqual(expected, result);
         }

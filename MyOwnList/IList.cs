@@ -7,13 +7,17 @@ namespace MyOwnList
      public interface IList<T>
     {
         void Clear();
-        String ToString();
+        string ToString();
         T[] ToArray();
-        void AddStart(T val);
-        void AddByIndex(int pos, T val);
-        T RemoveByIndex(int pos);
+        void AddStart(T value);
+        void Add(T value);
+        void AddByIndex(int index, T value);
+        T RemoveByIndex(int index);
         T RemoveStart();
         T Remove();
+        int RemoveByValueFirst(T value);
+        int RemoveByValueAll(T value);
+        int FindIndexByValue(T value);
         int GetMaxIndex();
         T GetMax();
         int GetMinIndex();

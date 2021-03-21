@@ -33,8 +33,7 @@ namespace MyOwnList.Test
         {
             MyList<int> inputList = new MyList<int>();
 
-            Assert.Throws<InvalidOperationException>(() =>
-                inputList.Remove());
+            Assert.Throws<InvalidOperationException>(() => inputList.Remove());
         }
     }
 }

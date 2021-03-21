@@ -89,7 +89,7 @@ namespace MyOwnList
 
             for (int i = 0; i < Length; i++)
             {
-                stringBuilder.Append(_array[i]).Append(" ");
+                stringBuilder.Append($"{_array[i]} ");
             }
 
             return stringBuilder.ToString().Trim();
@@ -110,6 +110,7 @@ namespace MyOwnList
         public void AddByIndex(int index, T value)
         {
             ++Length;
+
             if (IsValidLength(index))
             {
                 Resize();
@@ -120,11 +121,12 @@ namespace MyOwnList
                 }
 
                 _array[index] = value;
+
+                return;
             }
-            else
-            {
-                throw new IndexOutOfRangeException();
-            }
+
+
+            throw new IndexOutOfRangeException();
         }
 
         public void AddStart(T value)
@@ -142,12 +144,9 @@ namespace MyOwnList
             {
                 Resize();
 
-                for (int i = Length - 1; i > index; i--)
+                for (int i = Length - 1; i > index && i >= count; i--)
                 {
-                    if (i >= count)
-                    {
-                        _array[i] = _array[i - count];
-                    }
+                    _array[i] = _array[i - count];
                 }
 
                 foreach (var item in collection)
@@ -161,7 +160,7 @@ namespace MyOwnList
             }
         }
 
-        public void AddRangeByIndex(int index, T[] collection)
+        public void AddRangeStart(MyList<T> collection)
         {
             int count = collection.Count();
 
@@ -248,8 +247,6 @@ namespace MyOwnList
             throw new InvalidOperationException("MyList is empty");
         }
 
-
-
         public void RemoveRangeByIndex(int index, int quantity)
         {
             if (quantity <= Length - index && IsValidLength(index))
@@ -321,6 +318,22 @@ namespace MyOwnList
             }
 
             return counter;
+        }
+
+        public int FindIndexByValue(T value)
+        {
+            int index = -1;
+
+            for (int i = 0; i < Length; i++)
+            {
+                if (_array[i].CompareTo(value) == 0)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            return index;
         }
 
         public int GetMinIndex()
@@ -419,25 +432,19 @@ namespace MyOwnList
 
         public void HalfReverse()
         {
-            int k = Length / 2 + Length % 2;//
-
-            for (int i = 0; i < Length / 2; i++)
+            if (_array != null)
             {
-                Swap(ref _array[i], ref _array[k + i]);
+                int k = Length / 2 + Length % 2;
+
+                for (int i = 0; i < Length / 2; i++)
+                {
+                    Swap(ref _array[i], ref _array[k + i]);
+                }
             }
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is MyList<T> list &&
-                   EqualityComparer<T[]>.Default.Equals(_array, list._array) &&
-                   Capacity == list.Capacity &&
-                   Length == list.Length;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(_array, Capacity, Length);
+            else
+            {
+                throw new NullReferenceException("Array is null");
+            }
         }
 
         public IEnumerator<T> GetEnumerator()

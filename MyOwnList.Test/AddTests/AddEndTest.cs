@@ -16,9 +16,9 @@ namespace MyOwnList.Test.AddTests
         private static IEnumerable<object[]> DataAddTest()
         {
             yield return new object[] { 10, new MyList<int>() { 1, 2, 3, 4, 5, 6 },
-            new MyList<int>() { 1, 2, 3, 4, 5, 6, 10} };
+                new MyList<int>() { 1, 2, 3, 4, 5, 6, 10} };
             yield return new object[] { 10, new MyList<int>() ,
-            new MyList<int>() { 10} };
+                new MyList<int>() { 10} };
         }
     }
 }

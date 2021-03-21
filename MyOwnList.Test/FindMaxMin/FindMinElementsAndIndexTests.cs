@@ -14,6 +14,7 @@ namespace MyOwnList.Test.FindMaxMin
 
             Assert.AreEqual(posExpected, indexResult);
         }
+
         private static IEnumerable<object[]> DataGetMinIndexTest()
         {
             yield return new object[] { new MyList<int>() { 1, 2, 10, 0, 4, 5, 6 }, 3 };
@@ -26,6 +27,7 @@ namespace MyOwnList.Test.FindMaxMin
         {
             Assert.Throws<InvalidOperationException>(() => result.GetMinIndex());
         }
+
         private static IEnumerable<object[]> DataGetMinIndexForExeptionTest()
         {
             yield return new object[] { new MyList<int>() };

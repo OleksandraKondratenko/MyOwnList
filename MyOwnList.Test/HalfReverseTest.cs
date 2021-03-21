@@ -8,7 +8,7 @@ namespace MyOwnList.Test
     class HalfReverseTest
     {
         [TestCaseSource(nameof(DataHalfReverseValidTest))]
-        public void Reverse_WhenValidListPassed_ShouldReverseListByHalves(
+        public void HalfReverse_WhenValidListPassed_ShouldReverseListByHalves(
             MyList<int> inputList, MyList<int> expectedList)
         {
             inputList.HalfReverse();
@@ -25,6 +25,13 @@ namespace MyOwnList.Test
                 new MyList<int>() { 57, 68, 65, 1057, -2, 34, 5 } };
 
             yield return new object[] { new MyList<int>() { }, new MyList<int>() { } };
+        }
+
+        [TestCase(null)]
+        public void HalfReverse_WhenValidListPassed_ShouldReverseListByHalves(
+            MyList<int> inputList)
+        {
+            Assert.Throws<NullReferenceException>(() => inputList.HalfReverse());
         }
     }
 }
