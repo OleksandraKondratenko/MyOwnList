@@ -1,11 +1,10 @@
 ﻿using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace MyOwnList.Test.DelTests
 {
-    class RemoveByValueAllTest
+    public partial class MyList
     {
-        [TestCase(-2, 4, new int[] { -2, -2, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { 5, 6, 57, 68, 65, -17 })]
+        [TestCase(-2, 3, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { 34, 5, 6, 57, 68, 65, -17 })]
         [TestCase(34, 2, new int[] { -2, 34, 5, 6, -2, 57, 34, 68, 65, -2, -17 }, new int[] { -2, 5, 6, -2, 57, 68, 65, -2, -17 })]
         [TestCase(13, 0, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
         [TestCase(13, 0, new int[] { }, new int[] { })]
