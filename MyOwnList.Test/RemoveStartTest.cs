@@ -9,15 +9,15 @@ namespace MyOwnList.Test
         [TestCase(34, new int[] { 34, 96 }, new int[] { 96 })]
         [TestCase(-117, new int[] { -117 }, new int[] { })]
         public void RemoveStart_WhenValidIndexPassed_ShouldDeleteFirstElement(
-            int expectedElement, int[] inputArray, int[] expectedArray)
+            int expectedValueToRemove, int[] inputArray, int[] expectedArray)
         {
-            MyList<int> inputList = new MyList<int>(inputArray);
+            MyList<int> actualList = new MyList<int>(inputArray);
             MyList<int> expectedList = new MyList<int>(expectedArray);
 
-            int actualElement = inputList.RemoveStart();
+            int actualValueToRemove = actualList.RemoveStart();
 
-            Assert.AreEqual(expectedElement, actualElement);
-            CollectionAssert.AreEqual(expectedList, inputList);
+            Assert.AreEqual(expectedValueToRemove, actualValueToRemove);
+            CollectionAssert.AreEqual(expectedList, actualList);
         }
 
         [Test]
@@ -25,8 +25,7 @@ namespace MyOwnList.Test
         {
             MyList<int> inputList = new MyList<int>() { };
 
-            Assert.Throws<InvalidOperationException>(() =>
-                inputList.Remove());
+            Assert.Throws<InvalidOperationException>(() => inputList.Remove());
         }
     }
 }

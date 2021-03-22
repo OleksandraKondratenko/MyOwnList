@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 
-namespace MyOwnList.Test.RemoveTests
+namespace MyOwnList.Test
 {
     public partial class MyList
     {
@@ -12,12 +12,12 @@ namespace MyOwnList.Test.RemoveTests
         public void RemoveRangeByIndex_WhenValidIndexPassed_ShouldRemoveRangeByIndex(
             int index, int quantity, int[] inputArray, int[] expectedArray)
         {
-            MyList<int> inputList = new MyList<int>(inputArray);
+            MyList<int> actualList = new MyList<int>(inputArray);
             MyList<int> expectedList = new MyList<int>(expectedArray);
 
-            inputList.RemoveRangeByIndex(index, quantity);
+            actualList.RemoveRangeByIndex(index, quantity);
 
-            CollectionAssert.AreEqual(expectedList, inputList);
+            CollectionAssert.AreEqual(expectedList, actualList);
         }
 
         [TestCase(3, 100, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]

@@ -1,49 +1,51 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 
-namespace MyOwnList.Test.FindMaxMin
+namespace MyOwnList.Test
 {
-    class FindMaxElementsAndIndexTests
+    public partial class MyList
     {
-        [TestCase(new int[] { 1, 2, 10, 4, 5, 6 }, 2)]
-        [TestCase(new int[] { 1, 2, 10, 4, 5, 50 }, 5)]
-        [TestCase(new int[] { 1 }, 0)]
-        public void MaxPos_WhenInputIsValued_ShouldFindIndexMaxElement(int [] result, 
-            int IndexExpected)
+        [TestCase(2, new int[] { 1, 2, 10, 4, 5, 6 })]
+        [TestCase(5, new int[] { 1, 2, 10, 4, 5, 50 })]
+        [TestCase(0, new int[] { 1 })]
+        public void GetMaxIndex_WhenInputIsValued_ShouldFindIndexMaxElement(
+            int expectedIndex, int[] inputArray)
         {
-            MyList<int> listResult = new MyList<int>(result);
+            MyList<int> acualList = new MyList<int>(inputArray);
 
-            int IndexResult = listResult.GetMaxIndex();
+            int actualIndex = acualList.GetMaxIndex();
 
-            Assert.AreEqual(IndexExpected, IndexResult);
+            Assert.AreEqual(expectedIndex, actualIndex);
         }
 
-        
         [TestCase(new int[] { })]
-        public void GetMaxIndex_WhenInputIsNotValid_ShouldGenerateInvalidOperationExeption(int [] result)
+        public void GetMaxIndex_WhenInputIsNotValid_ShouldThrowInvalidOperationExeption(
+            int[] inputArray)
         {
-            MyList<int> listResult = new MyList<int>(result);
+            MyList<int> actualList = new MyList<int>(inputArray);
 
-            Assert.Throws<InvalidOperationException>(() => listResult.GetMaxIndex());
+            Assert.Throws<InvalidOperationException>(() => actualList.GetMaxIndex());
         }
-     
+
         [TestCase(null)]
-        public void GetMaxIndex_WhenInputIsNotValid_ShouldGenerateNullReferenceExeption(int [] result)
+        public void GetMaxIndex_WhenInputIsNotValid_ShouldThrowNullReferenceExeption(
+            int[] inputArray)
         {
-            MyList<int> listResult = new MyList<int>(result);
-            Assert.Throws<NullReferenceException>(() => listResult.GetMaxIndex());
+            MyList<int> actualList = new MyList<int>(inputArray);
+
+            Assert.Throws<NullReferenceException>(() => actualList.GetMaxIndex());
         }
 
-        [TestCase(new int[] { 1, 2, 10, 4, 5, 6, 7, 8, 9, 6 }, 10)]
-        [TestCase(new int[] { 1, 2, 10, 4, 5, 50 }, 50)]
-        [TestCase(new int[] { 1 }, 1)]
-        public void Max_WhenInputIsValued_ShouldFindMaxElement(int [] result, int posExpected)
+        [TestCase(10, new int[] { 1, 2, 10, 4, 5, 6, 7, 8, 9, 6 })]
+        [TestCase(50, new int[] { 1, 2, 10, 4, 5, 50 })]
+        [TestCase(1, new int[] { 1 })]
+        public void GetMax_WhenInputIsValued_ShouldFindMaxElement(
+            int expectedMax, int[] inputArray)
         {
-            MyList<int> listResult = new MyList<int>(result);
-            int posResult = listResult.GetMax();
+            MyList<int> actualList = new MyList<int>(inputArray);
+            int actualMax = actualList.GetMax();
 
-            Assert.AreEqual(posExpected, posResult);
+            Assert.AreEqual(expectedMax, actualMax);
         }
     }
 }

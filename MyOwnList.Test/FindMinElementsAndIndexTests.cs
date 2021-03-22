@@ -1,56 +1,52 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace MyOwnList.Test.FindMaxMin
+namespace MyOwnList.Test
 {
-    class FindMinElementsAndIndexTests
+    public partial class MyList
     {
-        [TestCase(new int[] { 1, 2, 10, 0, 4, 5, 6 }, 3)]
-        [TestCase(new int[] { 2, 2, 10, 3, 4, 5, 1 }, 6)]
-        [TestCase(new int[] { 1 }, 0)]
-        public void GetMinIndex_WhenInputIsValid_ShouldFindIndexMinElement(int [] result, int indexExpected)
+        [TestCase(3, new int[] { 1, 2, 10, 0, 4, 5, 6 })]
+        [TestCase(6, new int[] { 2, 2, 10, 3, 4, 5, 1 })]
+        [TestCase(0, new int[] { 1 })]
+        public void GetMinIndex_WhenInputIsValid_ShouldFindIndexMinElement(
+            int expectedIndex, int[] inputArray)
         {
-            MyList<int> listResult = new MyList<int>(result);
+            MyList<int> actualList = new MyList<int>(inputArray);
 
-            int indexResult = listResult.GetMinIndex();
+            int actualIndex = actualList.GetMinIndex();
 
-            Assert.AreEqual(indexExpected, indexResult);
+            Assert.AreEqual(expectedIndex, actualIndex);
         }
 
         [TestCase(new int[] { })]
-        public void GetMinIndex_WhenInputIsNotValid_ShouldGenerateInvalidOperationInvalidOperationExeption(int [] result)
+        public void GetMinIndex_WhenInputIsNotValid_ShouldThrowInvalidOperationInvalidOperationExeption(
+            int[] inputArray)
         {
-            MyList<int> listResult = new MyList<int>(result);
+            MyList<int> actualList = new MyList<int>(inputArray);
 
-            Assert.Throws<InvalidOperationException>(() => listResult.GetMinIndex());
+            Assert.Throws<InvalidOperationException>(() => actualList.GetMinIndex());
         }
 
         [TestCase(null)]
-        public void GetMaxIndex_WhenInputIsNotValid_ShouldGenerateNullReferenceExeption(int [] result)
+        public void GetMinIndex_WhenInputIsNotValid_ShouldThrowNullReferenceExeption(
+            int[] inputArray)
         {
-            MyList<int> listResult = new MyList<int>(result);
+            MyList<int> actualList = new MyList<int>(inputArray);
 
-            Assert.Throws<NullReferenceException>(() => listResult.GetMinIndex());
+            Assert.Throws<NullReferenceException>(() => actualList.GetMinIndex());
         }
 
-        [TestCase(new int[] { 1, 2, 10, 0, 4, 5, 6 }, 0)]
-        [TestCase(new int[] { 2, 2, 10, 3, 4, 5, 1 }, 1)]
-        [TestCase(new int[] { 1 }, 1)]
-        public void Min_WhenInputIsValued_ShouldFindMaxElement(int[] result, int intExpected)
+        [TestCase(0, new int[] { 1, 2, 10, 0, 4, 5, 6 })]
+        [TestCase(1, new int[] { 2, 2, 10, 3, 4, 5, 1 })]
+        [TestCase(1, new int[] { 1 })]
+        public void GetMin_WhenInputIsValued_ShouldFindMaxElement(
+            int expectedMin, int[] inputArray)
         {
-            MyList<int> listResult = new MyList<int>(result);
+            MyList<int> actualList = new MyList<int>(inputArray);
 
-            int posResult = listResult.GetMin();
+            int actualMin = actualList.GetMin();
 
-            Assert.AreEqual(intExpected, posResult);
-        }
-        private static IEnumerable<object[]> DataMinTest()
-        {
-            yield return new object[] { new int [] { 1, 2, 10, 0, 4, 5, 6 }, 0 };
-            yield return new object[] { new int [] { 2, 2, 10, 3, 4, 5, 1 }, 1 };
-            yield return new object[] { new int [] { 1 }, 1 };
+            Assert.AreEqual(expectedMin, actualMin);
         }
     }
 }

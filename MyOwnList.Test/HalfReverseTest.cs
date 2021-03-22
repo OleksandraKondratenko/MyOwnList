@@ -3,7 +3,7 @@ using System;
 
 namespace MyOwnList.Test
 {
-    public partial class MyOwnList
+    public partial class MyList
     {
         [TestCase(new int[] { -2, 34, 5, 57, 68, 65 }, new int[] { 57, 68, 65, -2, 34, 5 })]
         [TestCase(new int[] { -2, 34, 5, 1057, 57, 68, 65 }, new int[] { 57, 68, 65, 1057, -2, 34, 5 })]
@@ -11,19 +11,21 @@ namespace MyOwnList.Test
         public void HalfReverse_WhenValidListPassed_ShouldReverseListByHalves(
             int[] inputArray, int[] expectedArray)
         {
-            MyList<int> inputList = new MyList<int>(inputArray);
+            MyList<int> axtualList = new MyList<int>(inputArray);
             MyList<int> expectedList = new MyList<int>(expectedArray);
 
-            inputList.HalfReverse();
+            axtualList.HalfReverse();
 
-            CollectionAssert.AreEqual(expectedList, inputList);
+            CollectionAssert.AreEqual(expectedList, axtualList);
         }
 
         [TestCase(null)]
         public void HalfReverse_WhenValidListPassed_ShouldReverseListByHalves(
-            MyList<int> inputList)
+            int[] inputArray)
         {
-            Assert.Throws<NullReferenceException>(() => inputList.HalfReverse());
+            MyList<int> actualList = new MyList<int>(inputArray);
+
+            Assert.Throws<NullReferenceException>(() => actualList.HalfReverse());
         }
     }
 }

@@ -1,20 +1,18 @@
 ﻿using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace MyOwnList.Test
 {
     class ToArrayTest
     {
-        [TestCase(new int[] { 6, 7, 2, 1, 5, 3, 4, 10, 8, 9 },
-                new int[] { 6, 7, 2, 1, 5, 3, 4, 10, 8, 9 })]
+        [TestCase(new int[] { 6, 7, 2, 1, 5, 3, 4, 10, 8, 9 }, new int[] { 6, 7, 2, 1, 5, 3, 4, 10, 8, 9 })]
         public void ToArray_WhenCollectionIsValied_ShouldConvertToArray(
-           int [] collection, int[] expected)
+           int [] collectionToArray, int[] expectedArray)
         {
-            MyList<int> listCollection = new MyList<int>(collection);
+            MyList<int> listCollection = new MyList<int>(collectionToArray);
 
-            int[] result = listCollection.ToArray();
+            int[] actualArray = listCollection.ToArray();
 
-            CollectionAssert.AreEqual(expected, result);
+            CollectionAssert.AreEqual(expectedArray, actualArray);
         }
     }
 }

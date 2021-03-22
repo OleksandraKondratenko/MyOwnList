@@ -10,12 +10,12 @@ namespace MyOwnList.Test
         public void Reverse_WhenValidListPassed_ShouldReverseList(
             int[] inputArray, int[] expectedArray)
         {
-            MyList<int> inputList = new MyList<int>(inputArray);
+            MyList<int> actualList = new MyList<int>(inputArray);
             MyList<int> expectedList = new MyList<int>(expectedArray);
 
-            inputList.Reverse();
+            actualList.Reverse();
 
-            CollectionAssert.AreEqual(expectedList, inputList);
+            CollectionAssert.AreEqual(expectedList, actualList);
         }
     }
 }

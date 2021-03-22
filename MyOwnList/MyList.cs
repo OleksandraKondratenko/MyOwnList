@@ -9,7 +9,9 @@ namespace MyOwnList
     public class MyList<T> : IList<T>, IEnumerable<T> where T : IComparable
     {
         private T[] _array;
-        private readonly int _initializeIndex=8;
+
+        private readonly int _initializeIndex = 8;
+
         public int Capacity
         {
             get
@@ -59,11 +61,11 @@ namespace MyOwnList
         {
             InitializeArray();
             AddRange(collection);
-        } 
+        }
 
-        public MyList(T [] collection)
+        public MyList(T[] collection)
         {
-            if(collection!= null)
+            if (collection != null)
             {
                 InitializeArray();
                 AddRange(collection);
@@ -103,7 +105,6 @@ namespace MyOwnList
                 return;
             }
 
-
             throw new IndexOutOfRangeException();
         }
 
@@ -138,9 +139,9 @@ namespace MyOwnList
             }
         }
 
-        public void AddRangeByIndex(int index, T [] collection)
+        public void AddRangeByIndex(int index, T[] collection)
         {
-            if(collection != null)
+            if (collection != null)
             {
                 int count = collection.Length;
 
@@ -165,16 +166,17 @@ namespace MyOwnList
                     throw new ArgumentException();
                 }
             }
-            
-        }
-        public void AddRangeStart(MyList<T> collection)
-        {
-            AddRangeByIndex(index:0, collection);
+
         }
 
-        public void AddRangeStart(T [] collection)
+        public void AddRangeStart(MyList<T> collection)
         {
-            AddRangeByIndex(index:0, collection);
+            AddRangeByIndex(index: 0, collection);
+        }
+
+        public void AddRangeStart(T[] collection)
+        {
+            AddRangeByIndex(index: 0, collection);
         }
 
         public void AddRange(MyList<T> collection)
@@ -192,6 +194,7 @@ namespace MyOwnList
             if (CheckIndexWithingLenthValue(index))
             {
                 T value = _array[index];
+
                 --Length;
 
                 for (int i = index; i < Length; i++)
@@ -255,7 +258,7 @@ namespace MyOwnList
 
         public void RemoveRangeStart(int quantity)
         {
-            RemoveRangeByIndex(index:0, quantity);
+            RemoveRangeByIndex(index: 0, quantity);
         }
 
         public void RemoveRange(int quantity)
@@ -285,6 +288,7 @@ namespace MyOwnList
         public int RemoveByValueAll(T value)
         {
             int counter = 0;
+
             for (int i = 0; i < Length; i++)
             {
                 if (_array[i].CompareTo(value) == 0)
@@ -301,6 +305,7 @@ namespace MyOwnList
             }
 
             Resize();
+
             return counter;
         }
 
@@ -344,7 +349,6 @@ namespace MyOwnList
             {
                 throw new InvalidOperationException();
             }
-
         }
 
         public int GetMaxIndex()
@@ -388,8 +392,8 @@ namespace MyOwnList
         {
             T current;
             int index;
-
             int coeficient = isAscending ? 1 : -1;
+
             for (int i = 1; i < Length; i++)
             {
                 current = _array[i];
@@ -405,7 +409,7 @@ namespace MyOwnList
 
         public void Reverse()
         {
-            for (int i = 0; i < Length / 2 ; i++)
+            for (int i = 0; i < Length / 2; i++)
             {
                 Swap(ref _array[i], ref _array[Length - i - 1]);
             }
@@ -415,11 +419,11 @@ namespace MyOwnList
         {
             if (_array != null)
             {
-                int k = Length / 2 + Length % 2;
+                int coefficient = Length / 2 + Length % 2;
 
                 for (int i = 0; i < Length / 2; i++)
                 {
-                    Swap(ref _array[i], ref _array[k + i]);
+                    Swap(ref _array[i], ref _array[coefficient + i]);
                 }
             }
             else
@@ -439,7 +443,7 @@ namespace MyOwnList
 
             return arrayNew;
         }
-       
+
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -451,6 +455,7 @@ namespace MyOwnList
 
             return stringBuilder.ToString().Trim();
         }
+
         public IEnumerator<T> GetEnumerator()
         {
             for (int i = 0; i < Length; i++)
@@ -459,19 +464,18 @@ namespace MyOwnList
             }
         }
 
-        private void Resize()
+        private void Resize()//
         {
             T[] temp = new T[(int)(Length * 1.3 + 1)];
 
-            int k = Length < Capacity ? Length : Capacity;
+            int tempLength = Length < Capacity ? Length : Capacity;
 
-            for (int i = 0; i < k; i++)
+            for (int i = 0; i < tempLength; i++)
             {
                 temp[i] = _array[i];
             }
 
             _array = temp;
-
         }
 
         private bool CheckIndexWithingCapacityValue(int index)
@@ -481,7 +485,7 @@ namespace MyOwnList
 
         private bool CheckIndexWithingLenthValue(int index)
         {
-            return index >= 0 && index < Length ;
+            return index >= 0 && index < Length;
         }
 
         private void InitializeArray()
@@ -489,6 +493,7 @@ namespace MyOwnList
             Length = 0;
             _array = new T[_initializeIndex];
         }
+
         private void Swap(ref T a, ref T b)
         {
             T temp = a;

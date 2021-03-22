@@ -9,23 +9,23 @@ namespace MyOwnList.Test
         [TestCase(34, new int[] { 2, 34 }, new int[] { 2 })]
         [TestCase(2, new int[] { 2 }, new int[] { })]
         public void Remove_WhenValidIndexPassed_ShouldDeleteLastElement(
-            int expectedElement, int[] inputArray, int[] expectedArray)
+            int expectedValueToRemove, int[] inputArray, int[] expectedArray)
         {
-            MyList<int> inputList = new MyList<int>(inputArray);
+            MyList<int> actualList = new MyList<int>(inputArray);
             MyList<int> expectedList = new MyList<int>(expectedArray);
 
-            int actualElement = inputList.Remove();
+            int actualValueToRemove = actualList.Remove();
 
-            Assert.AreEqual(expectedElement, actualElement);
-            CollectionAssert.AreEqual(expectedList, inputList);
+            Assert.AreEqual(expectedValueToRemove, actualValueToRemove);
+            CollectionAssert.AreEqual(expectedList, actualList);
         }
 
         [Test]
         public void Remove_WhenIndexOutOfRange_ShouldThrowArgumentOutOfRangeException()
         {
-            MyList<int> inputList = new MyList<int>();
+            MyList<int> actualList = new MyList<int>();
 
-            Assert.Throws<InvalidOperationException>(() => inputList.Remove());
+            Assert.Throws<InvalidOperationException>(() => actualList.Remove());
         }
     }
 }

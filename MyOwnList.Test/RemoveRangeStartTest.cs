@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 
-namespace MyOwnList.Test.RemoveTests
+namespace MyOwnList.Test
 {
     public partial class MyList
     {
@@ -12,12 +12,12 @@ namespace MyOwnList.Test.RemoveTests
         public void RemoveRangeStart_WhenValidIndexPassed_ShouldRemoveRangeStart(
             int quantity, int[] inputArray, int[] expectedArray)
         {
-            MyList<int> inputList = new MyList<int>(inputArray);
+            MyList<int> actualList = new MyList<int>(inputArray);
             MyList<int> expectedList = new MyList<int>(expectedArray);
 
-            inputList.RemoveRangeStart(quantity);
+            actualList.RemoveRangeStart(quantity);
 
-            CollectionAssert.AreEqual(expectedList, inputList);
+            CollectionAssert.AreEqual(expectedList, actualList);
         }
 
         [TestCase(100, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
@@ -25,9 +25,9 @@ namespace MyOwnList.Test.RemoveTests
         public void RemoveByIndex_WhenIndexOutOfRange_ShouldThrowInvalidOperationException(
             int quantity, int[] inputArray)
         {
-            MyList<int> inputList = new MyList<int>(inputArray);
+            MyList<int> actualList = new MyList<int>(inputArray);
 
-            Assert.Throws<InvalidOperationException>(() => inputList.RemoveRangeStart(quantity));
+            Assert.Throws<InvalidOperationException>(() => actualList.RemoveRangeStart(quantity));
         }
     }
 }

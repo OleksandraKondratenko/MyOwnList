@@ -1,18 +1,15 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MyOwnList.Test
 {
-    public partial class MyOwnList
+    public partial class MyList
     {
         [TestCase(-2, 0, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
         public void FindIndexByValue_WhenValidIndexPassed_ShouldReturnIndex(
-            int value, int expectedIndex, int [] inputList)
+            int valueToInsert, int expectedIndex, int [] inputArray)
         {
-            MyList<int> list = new MyList<int>(inputList);
-            int actualIndex = list.FindIndexByValue(value);
+            MyList<int> list = new MyList<int>(inputArray);
+            int actualIndex = list.FindIndexByValue(valueToInsert);
 
             Assert.AreEqual(expectedIndex, actualIndex);
         }

@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace MyOwnList.Test
 {
@@ -7,13 +6,13 @@ namespace MyOwnList.Test
     {
         [TestCase(new int[] { 6, 7, 2, 1, 5, 3, 4, 10, 8, 9 }, "6 7 2 1 5 3 4 10 8 9")]
         public void ToString_WhenCollectionIsValued_ShouldConvertCollectionToString(
-          int[] inputArray, string expected)
+          int[] inputArray, string expectedString)
         {
-            MyList<int> inputList = new MyList<int>(inputArray);
+            MyList<int> actualList = new MyList<int>(inputArray);
 
-            string result = inputList.ToString();
+            string actualString = actualList.ToString();
 
-            Assert.AreEqual(expected, result);
+            Assert.AreEqual(expectedString, actualString);
         }
     }
 }
