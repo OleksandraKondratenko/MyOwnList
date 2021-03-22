@@ -1,31 +1,23 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 
 namespace MyOwnList.Test
 {
-    class RemoveTest
+    public partial class MyList
     {
-        [TestCaseSource(nameof(DataRemoveValidTest))]
+        [TestCase(-17, new int[] { 2, 34, 5, 6, 57, 68, 65, -17 }, new int[] { 2, 34, 5, 6, 57, 68, 65 })]
+        [TestCase(34, new int[] { 2, 34 }, new int[] { 2 })]
+        [TestCase(2, new int[] { 2 }, new int[] { })]
         public void Remove_WhenValidIndexPassed_ShouldDeleteLastElement(
-            int expectedElement, MyList<int> inputList, MyList<int> expectedList)
+            int expectedElement, int[] inputArray, int[] expectedArray)
         {
+            MyList<int> inputList = new MyList<int>(inputArray);
+            MyList<int> expectedList = new MyList<int>(expectedArray);
+
             int actualElement = inputList.Remove();
 
             Assert.AreEqual(expectedElement, actualElement);
             CollectionAssert.AreEqual(expectedList, inputList);
-        }
-
-        private static IEnumerable<object[]> DataRemoveValidTest()
-        {
-            yield return new object[] { -17, new MyList<int>() { 2, 34, 5, 6, 57, 68, 65, -17 },
-                new MyList<int>() { 2, 34, 5, 6, 57, 68, 65 } };
-
-            yield return new object[] { 34, new MyList<int>() { 2, 34 },
-                new MyList<int>() { 2 } };
-
-            yield return new object[] { 2, new MyList<int>() { 2 },
-                new MyList<int>() { } };
         }
 
         [Test]

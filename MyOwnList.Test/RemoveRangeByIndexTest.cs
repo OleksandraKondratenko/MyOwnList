@@ -1,66 +1,47 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 
 namespace MyOwnList.Test.RemoveTests
 {
-    class RemoveRangeByIndexTest
+    public partial class MyList
     {
-        [TestCaseSource(nameof(DataRemoveRangeByIndexValidTest))]
+        [TestCase(4, 3, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { -2, 34, 5, 6, 65, -2, -17 })]
+        [TestCase(0, 7, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { 65, -2, -17 })]
+        [TestCase(6, 4, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { -2, 34, 5, 6, -2, 57 })]
+        [TestCase(0, 10, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { })]
         public void RemoveRangeByIndex_WhenValidIndexPassed_ShouldRemoveRangeByIndex(
-            int index, int quantity, MyList<int> inputList, MyList<int> expectedList)
+            int index, int quantity, int[] inputArray, int[] expectedArray)
         {
+            MyList<int> inputList = new MyList<int>(inputArray);
+            MyList<int> expectedList = new MyList<int>(expectedArray);
+
             inputList.RemoveRangeByIndex(index, quantity);
 
             CollectionAssert.AreEqual(expectedList, inputList);
         }
 
-        private static IEnumerable<object[]> DataRemoveRangeByIndexValidTest()
-        {
-            yield return new object[] { 4, 3, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 },
-                new MyList<int>() { -2, 34, 5, 6, 65, -2, -17 } };
-
-            yield return new object[] { 0, 7, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 },
-                new MyList<int>() { 65, -2, -17 } };
-
-            yield return new object[] { 6, 4, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 },
-                new MyList<int>() { -2, 34, 5, 6, -2, 57} };
-
-            yield return new object[] { 0, 10, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 },
-                new MyList<int>() { } };
-        }
-
         [TestCase(3, 100, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
+        [TestCase(2, 4, new int[] { -2, 34, 5, 6 })]
         public void RemoveByIndex_WhenIndexOutOfRange_ShouldThrowInvalidOperationException(
-            int index, int quantity, int[] inputList)
+            int index, int quantity, int[] inputArray)
         {
-            MyList<int> list = new MyList<int>();
-            list.AddRange(inputList);
+            MyList<int> inputList = new MyList<int>(inputArray);
 
             Assert.Throws<InvalidOperationException>(() =>
-                list.RemoveRangeByIndex(index, quantity));
-        }
-
-        private static IEnumerable<object[]> DataRemoveRangeByIndexWrongQuantityTest()
-        {
-            yield return new object[] { 3, 100, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 } };
-            yield return new object[] { 2, 4, new MyList<int>() { -2, 34, 5, 6} };
-        }
-
-        [TestCaseSource(nameof(DataRemoveRangeByIndexWrongIndexTest))]
-        public void RemoveByIndex_WhenIndexOutOfRange_ShouldThrowIndexOutOfRangeException(
-            int index, int quantity, MyList<int> inputList)
-        {
-            Assert.Throws<IndexOutOfRangeException>(() =>
                 inputList.RemoveRangeByIndex(index, quantity));
         }
 
-        private static IEnumerable<object[]> DataRemoveRangeByIndexWrongIndexTest()
+        [TestCase(-1, 1, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
+        [TestCase(-10, 1, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
+        [TestCase(10, 1, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
+        [TestCase(100, 1, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
+        public void RemoveByIndex_WhenIndexOutOfRange_ShouldThrowIndexOutOfRangeException(
+            int index, int quantity, int[] inputArray)
         {
-            yield return new object[] { -1, 1, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 } };
-            yield return new object[] { -10, 1, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 } };
-            yield return new object[] { 10, 1, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 } };        
-            yield return new object[] { 100, 1, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 } };
+            MyList<int> inputList = new MyList<int>(inputArray);
+
+            Assert.Throws<IndexOutOfRangeException>(() =>
+                inputList.RemoveRangeByIndex(index, quantity));
         }
     }
 }

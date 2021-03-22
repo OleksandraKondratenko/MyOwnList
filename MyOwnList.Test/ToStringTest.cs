@@ -3,20 +3,17 @@ using System.Collections.Generic;
 
 namespace MyOwnList.Test
 {
-    class ToStringTest
+    public partial class MyList
     {
-        [TestCaseSource(nameof(DataToStringTest))]
+        [TestCase(new int[] { 6, 7, 2, 1, 5, 3, 4, 10, 8, 9 }, "6 7 2 1 5 3 4 10 8 9")]
         public void ToString_WhenCollectionIsValued_ShouldConvertCollectionToString(
-          MyList<int> collection, string expected)
+          int[] inputArray, string expected)
         {
-            string result = collection.ToString();
+            MyList<int> inputList = new MyList<int>(inputArray);
 
-           Assert.AreEqual(expected, result);
-        }
-        private static IEnumerable<object[]> DataToStringTest()
-        {
-            yield return new object[] { new MyList<int>() { 6, 7, 2, 1 ,5, 3, 4, 10, 8, 9 },
-                "6 7 2 1 5 3 4 10 8 9" };
+            string result = inputList.ToString();
+
+            Assert.AreEqual(expected, result);
         }
     }
 }

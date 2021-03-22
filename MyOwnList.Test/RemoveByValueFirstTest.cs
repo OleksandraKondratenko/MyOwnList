@@ -1,47 +1,28 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MyOwnList.Test.DelTests
 {
-    class RemoveByValueFirstTest
+    public partial class MyList
     {
-        [TestCaseSource(nameof(DataRemoveByValueFirstValidTest))]
+        [TestCase(-2, 0, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
+        [TestCase(34, 1, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { -2, 5, 6, -2, 57, 68, 65, -2, -17 })]
+        [TestCase(68, 6, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { -2, 34, 5, 6, -2, 57, 65, -2, -17 })]
+        [TestCase(-17, 9, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2 })]
+        [TestCase(-10, -1, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
+        [TestCase(-1, -1, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
+        [TestCase(10, -1, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
+        [TestCase(13, -1, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
+        [TestCase(19, -1, new int[] { }, new int[] { })]
         public void RemoveByValueFirst_WhenValidIndexPassed_ShouldRemoveFirstValue(
-            int value, int expectedIndex, MyList<int> inputList, MyList<int> expectedList)
+            int value, int expectedIndex, int[] inputArray, int[] expectedArray)
         {
+            MyList<int> inputList = new MyList<int>(inputArray);
+            MyList<int> expectedList = new MyList<int>(expectedArray);
+
             int actualIndex = inputList.RemoveByValueFirst(value);
 
             Assert.AreEqual(expectedIndex, actualIndex);
             CollectionAssert.AreEqual(expectedList, inputList);
-        }
-
-        private static IEnumerable<object[]> DataRemoveByValueFirstValidTest()
-        {
-            yield return new object[] { -2, 0, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 },
-                new MyList<int>() { 34, 5, 6, -2, 57, 68, 65, -2, -17 } };
-
-            yield return new object[] { 34, 1, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 },
-                new MyList<int>() { -2, 5, 6, -2, 57, 68, 65, -2, -17 } };
-
-            yield return new object[] { 68, 6, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 },
-                new MyList<int>() { -2, 34, 5, 6, -2, 57, 65, -2, -17 } };
-
-            yield return new object[] { -17, 9, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 },
-                new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2 } };
-
-            yield return new object[] { -10, -1, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 },
-                new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 } };
-
-            yield return new object[] { -1, -1, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 },
-                new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 } };
-
-            yield return new object[] { 10, -1, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 },
-                new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 } };
-
-            yield return new object[] { 13, -1, new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 },
-                new MyList<int>() { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 } };
         }
     }
 }

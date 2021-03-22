@@ -1,30 +1,22 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MyOwnList.Test
 {
-    class HalfReverseTest
+    public partial class MyOwnList
     {
-        [TestCaseSource(nameof(DataHalfReverseValidTest))]
+        [TestCase(new int[] { -2, 34, 5, 57, 68, 65 }, new int[] { 57, 68, 65, -2, 34, 5 })]
+        [TestCase(new int[] { -2, 34, 5, 1057, 57, 68, 65 }, new int[] { 57, 68, 65, 1057, -2, 34, 5 })]
+        [TestCase(new int[] { }, new int[] { })]
         public void HalfReverse_WhenValidListPassed_ShouldReverseListByHalves(
-            MyList<int> inputList, MyList<int> expectedList)
+            int[] inputArray, int[] expectedArray)
         {
+            MyList<int> inputList = new MyList<int>(inputArray);
+            MyList<int> expectedList = new MyList<int>(expectedArray);
+
             inputList.HalfReverse();
 
             CollectionAssert.AreEqual(expectedList, inputList);
-        }
-
-        private static IEnumerable<object[]> DataHalfReverseValidTest()
-        {
-            yield return new object[] { new MyList<int>() { -2, 34, 5, 57, 68, 65},
-                new MyList<int>() {57, 68, 65, -2, 34, 5 } };
-
-            yield return new object[] { new MyList<int>() {  -2, 34, 5, 1057, 57, 68, 65 },
-                new MyList<int>() { 57, 68, 65, 1057, -2, 34, 5 } };
-
-            yield return new object[] { new MyList<int>() { }, new MyList<int>() { } };
         }
 
         [TestCase(null)]
