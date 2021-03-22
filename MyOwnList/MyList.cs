@@ -63,15 +63,18 @@ namespace MyOwnList
 
         public MyList(T [] collection)
         {
-            InitializeArray();
-            AddRange(collection);
+            if(collection!= null)
+            {
+                InitializeArray();
+                AddRange(collection);
+            }
         }
 
         public void Add(T item)
         {
             if (!CheckIndexWithingCapacityValue(Length))
             {
-                Resize(1);
+                Resize();
             }
 
             _array[Length++] = item;
@@ -88,7 +91,7 @@ namespace MyOwnList
 
             if (CheckIndexWithingLenthValue(index))
             {
-                Resize(1);
+                Resize();
 
                 for (int i = Length - 1; i > index; i--)
                 {
@@ -117,7 +120,7 @@ namespace MyOwnList
 
             if (CheckIndexWithingLenthValue(index))
             {
-                Resize(1);
+                Resize();
 
                 for (int i = Length - 1; i > index && i >= count; i--)
                 {
@@ -137,28 +140,32 @@ namespace MyOwnList
 
         public void AddRangeByIndex(int index, T [] collection)
         {
-            int count = collection.Count();
-
-            Length += count;
-
-            if (CheckIndexWithingLenthValue(index))
+            if(collection != null)
             {
-                Resize(1);
+                int count = collection.Length;
 
-                for (int i = Length - 1; i > index && i >= count; i--)
+                Length += count;
+
+                if (CheckIndexWithingLenthValue(index))
                 {
-                    _array[i] = _array[i - count];
+                    Resize();
+
+                    for (int i = Length - 1; i > index && i >= count; i--)
+                    {
+                        _array[i] = _array[i - count];
+                    }
+
+                    foreach (var item in collection)
+                    {
+                        _array[index++] = item;
+                    }
                 }
-
-                foreach (var item in collection)
+                else if (Length != 0)
                 {
-                    _array[index++] = item;
+                    throw new ArgumentException();
                 }
             }
-            else
-            {
-                throw new ArgumentException();
-            }
+            
         }
         public void AddRangeStart(MyList<T> collection)
         {
@@ -192,7 +199,7 @@ namespace MyOwnList
                     _array[i] = _array[i + 1];
                 }
 
-                Resize(-1);
+                Resize();
 
                 return value;
             }
@@ -212,7 +219,7 @@ namespace MyOwnList
                 T item = _array[Length - 1];
 
                 --Length;
-                Resize(-1);
+                Resize();
 
                 return item;
             }
@@ -234,7 +241,7 @@ namespace MyOwnList
 
                 Length -= quantity;
 
-                Resize(-1);
+                Resize();
             }
             else if (!CheckIndexWithingLenthValue(index))
             {
@@ -255,7 +262,7 @@ namespace MyOwnList
         {
             Length = (quantity < Length) ? Length - quantity : 0;
 
-            Resize(-1);
+            Resize();
         }
 
         public int RemoveByValueFirst(T value)
@@ -275,19 +282,25 @@ namespace MyOwnList
             return resultIndex;
         }
 
-        public int RemoveByValueAll(T value)//
+        public int RemoveByValueAll(T value)
         {
             int counter = 0;
-
             for (int i = 0; i < Length; i++)
             {
                 if (_array[i].CompareTo(value) == 0)
                 {
-                    RemoveByIndex(i);
+                    for (int j = i; j < Length; j++)
+                    {
+                        _array[j] = _array[j + 1];
+                    }
+
+                    --i;
+                    --Length;
                     ++counter;
                 }
             }
 
+            Resize();
             return counter;
         }
 
@@ -446,30 +459,19 @@ namespace MyOwnList
             }
         }
 
-        private void Resize( int coefficient)
+        private void Resize()
         {
-            T[] temp = _array;
+            T[] temp = new T[(int)(Length * 1.3 + 1)];
 
-           // _array = new T[(int)(Capacity*(1 +0.33 * coefficient )+1)];
-            while (Length >= Capacity)
+            int k = Length < Capacity ? Length : Capacity;
+
+            for (int i = 0; i < k; i++)
             {
-                _array = new T[(int)(Capacity * 1.3 + 1)];
-
-                for (int i = 0; i < temp.Length; i++)
-                {
-                    _array[i] = temp[i];
-                }
+                temp[i] = _array[i];
             }
 
-            while (Capacity > Length * 1.33 + 1)
-            {
-                _array = new T[(int)(Capacity * 0.7)];
+            _array = temp;
 
-                for (int i = 0; i < Length; i++)
-                {
-                    _array[i] = temp[i];
-                }
-            }
         }
 
         private bool CheckIndexWithingCapacityValue(int index)

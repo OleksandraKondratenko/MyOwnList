@@ -5,18 +5,16 @@ namespace MyOwnList.Test
 {
     class ToArrayTest
     {
-        [TestCaseSource(nameof(DataToStringTest))]
+        [TestCase(new int[] { 6, 7, 2, 1, 5, 3, 4, 10, 8, 9 },
+                new int[] { 6, 7, 2, 1, 5, 3, 4, 10, 8, 9 })]
         public void ToArray_WhenCollectionIsValied_ShouldConvertToArray(
-           MyList<int> collection, int[] expected)
+           int [] collection, int[] expected)
         {
-            int[] result = collection.ToArray();
+            MyList<int> listCollection = new MyList<int>(collection);
+
+            int[] result = listCollection.ToArray();
 
             CollectionAssert.AreEqual(expected, result);
-        }
-        private static IEnumerable<object[]> DataToStringTest()
-        {
-            yield return new object[] { new MyList<int>() { 6,7, 2, 1 ,5, 3, 4, 10, 8, 9 },
-                new int [] { 6,7, 2, 1 ,5, 3, 4, 10, 8, 9 } };
         }
     }
 }
