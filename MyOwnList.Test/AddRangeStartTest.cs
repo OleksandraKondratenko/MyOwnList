@@ -6,7 +6,7 @@ namespace MyOwnList.Test
     {
         [TestCase(new int[] { 30, 40, 50 }, new int[] { 1, 2, 3, 4, 5, 6 }, new int[] { 30, 40, 50, 1, 2, 3, 4, 5, 6 })]
         [TestCase(new int[] { 30, 40, 50 }, new int[] { }, new int[] { 30, 40, 50 })]
-        public void AddRangeStart_WhenInputIsValued_ShouldAddItToCollection(
+        public override void AddRangeStart_WhenInputIsValued_ShouldAddItToCollection(
             int[] collectionToInsert, int[] inputArray, int[] expectedArray)
         {
             MyList<int> expectedList = new MyList<int>(expectedArray);

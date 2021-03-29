@@ -9,7 +9,7 @@ namespace MyOwnList.Test
         [TestCase(1, 34, new int[] { -2, 34, 5, 6, 57, 68, 65, -17 }, new int[] { -2, 5, 6, 57, 68, 65, -17 })]
         [TestCase(6, 65, new int[] { -2, 34, 5, 6, 57, 68, 65, -17 }, new int[] { -2, 34, 5, 6, 57, 68, -17 })]
         [TestCase(7, -17, new int[] { -2, 34, 5, 6, 57, 68, 65, -17 }, new int[] { -2, 34, 5, 6, 57, 68, 65 })]
-        public void RemoveByIndex_WhenValidIndexPassed_ShouldDeleteElementByPosition(
+        public override void RemoveByIndex_WhenValidIndexPassed_ShouldDeleteElementByPosition(
             int index, int expectedValueToRemove, int[] inputArray, int[] expectedArray)
         {
             MyList<int> actualList = new MyList<int>(inputArray);
@@ -25,7 +25,7 @@ namespace MyOwnList.Test
         [TestCase(0, new int[] { })]
         [TestCase(4, new int[] { -2, 34, 5, 6 })]
         [TestCase(10, new int[] { -2, 34, 5, 6 })]
-        public void RemoveByIndex_WhenIndexOutOfRange_ShouldThrowArgumentOutOfRangeException(
+        public override void RemoveByIndex_WhenIndexOutOfRange_ShouldThrowArgumentOutOfRangeException(
             int index, int[] inputArray)
         {
             MyList<int> actualList = new MyList<int>(inputArray);

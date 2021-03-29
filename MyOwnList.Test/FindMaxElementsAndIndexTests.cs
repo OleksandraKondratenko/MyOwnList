@@ -8,7 +8,7 @@ namespace MyOwnList.Test
         [TestCase(2, new int[] { 1, 2, 10, 4, 5, 6 })]
         [TestCase(5, new int[] { 1, 2, 10, 4, 5, 50 })]
         [TestCase(0, new int[] { 1 })]
-        public void GetMaxIndex_WhenInputIsValued_ShouldFindIndexMaxElement(
+        public override void GetMaxIndex_WhenInputIsValued_ShouldFindIndexMaxElement(
             int expectedIndex, int[] inputArray)
         {
             MyList<int> acualList = new MyList<int>(inputArray);
@@ -19,7 +19,7 @@ namespace MyOwnList.Test
         }
 
         [TestCase(new int[] { })]
-        public void GetMaxIndex_WhenInputIsNotValid_ShouldThrowInvalidOperationExeption(
+        public override void GetMaxIndex_WhenInputIsNotValid_ShouldThrowInvalidOperationExeption(
             int[] inputArray)
         {
             MyList<int> actualList = new MyList<int>(inputArray);
@@ -28,7 +28,7 @@ namespace MyOwnList.Test
         }
 
         [TestCase(null)]
-        public void GetMaxIndex_WhenInputIsNotValid_ShouldThrowNullReferenceExeption(
+        public override void GetMaxIndex_WhenInputIsNotValid_ShouldThrowNullReferenceExeption(
             int[] inputArray)
         {
             MyList<int> actualList = new MyList<int>(inputArray);
@@ -39,7 +39,7 @@ namespace MyOwnList.Test
         [TestCase(10, new int[] { 1, 2, 10, 4, 5, 6, 7, 8, 9, 6 })]
         [TestCase(50, new int[] { 1, 2, 10, 4, 5, 50 })]
         [TestCase(1, new int[] { 1 })]
-        public void GetMax_WhenInputIsValued_ShouldFindMaxElement(
+        public override void GetMax_WhenInputIsValued_ShouldFindMaxElement(
             int expectedMax, int[] inputArray)
         {
             MyList<int> actualList = new MyList<int>(inputArray);

@@ -2,10 +2,10 @@
 
 namespace MyOwnList.Test
 {
-    public partial class MyList
+    public partial class MyList : MyListBase
     {
         [TestCase(new int[] { 30, 40, 50 }, new int[] { 1, 2, 3, 4, 5, 6 }, new int[] { 1, 2, 3, 4, 5, 6, 30, 40, 50 })]
-        public void AddRange_WhenInputIsValued_ShouldAddItToCollection(
+        public override void AddRange_WhenInputIsValued_ShouldAddItToCollection(
             int[] collectionToInsert, int[] inputArray, int[] expectedArray)
         {
             MyList<int> expectedList = new MyList<int>(expectedArray);

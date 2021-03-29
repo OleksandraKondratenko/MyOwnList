@@ -9,7 +9,7 @@ namespace MyOwnList.Test
         [TestCase(4, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { -2, 57, 68, 65, -2, -17 })]
         [TestCase(7, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { 65, -2, -17 })]
         [TestCase(10, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { })]
-        public void RemoveRangeStart_WhenValidIndexPassed_ShouldRemoveRangeStart(
+        public override void RemoveRangeStart_WhenValidIndexPassed_ShouldRemoveRangeStart(
             int quantity, int[] inputArray, int[] expectedArray)
         {
             MyList<int> actualList = new MyList<int>(inputArray);
@@ -22,7 +22,7 @@ namespace MyOwnList.Test
 
         [TestCase(100, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
         [TestCase(5, new int[] { -2, 34, 5, 6 })]
-        public void RemoveByIndex_WhenIndexOutOfRange_ShouldThrowInvalidOperationException(
+        public override void RemoveByIndex_WhenIndexOutOfRange_ShouldThrowInvalidOperationException(
             int quantity, int[] inputArray)
         {
             MyList<int> actualList = new MyList<int>(inputArray);

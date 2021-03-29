@@ -13,7 +13,7 @@ namespace MyOwnList.Test
         [TestCase(10, -1, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
         [TestCase(13, -1, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 }, new int[] { -2, 34, 5, 6, -2, 57, 68, 65, -2, -17 })]
         [TestCase(19, -1, new int[] { }, new int[] { })]
-        public void RemoveByValueFirst_WhenValidIndexPassed_ShouldRemoveFirstValue(
+        public override void RemoveByValueFirst_WhenValidIndexPassed_ShouldRemoveFirstValue(
             int valueToRemove, int expectedIndex, int[] inputArray, int[] expectedArray)
         {
             MyList<int> actualList = new MyList<int>(inputArray);

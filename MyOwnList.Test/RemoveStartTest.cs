@@ -8,7 +8,7 @@ namespace MyOwnList.Test
         [TestCase(-2, new int[] { -2, 34, 5, 6, 57, 68, 65, -17 }, new int[] { 34, 5, 6, 57, 68, 65, -17 })]
         [TestCase(34, new int[] { 34, 96 }, new int[] { 96 })]
         [TestCase(-117, new int[] { -117 }, new int[] { })]
-        public void RemoveStart_WhenValidIndexPassed_ShouldDeleteFirstElement(
+        public override void RemoveStart_WhenValidIndexPassed_ShouldDeleteFirstElement(
             int expectedValueToRemove, int[] inputArray, int[] expectedArray)
         {
             MyList<int> actualList = new MyList<int>(inputArray);
@@ -21,7 +21,7 @@ namespace MyOwnList.Test
         }
 
         [Test]
-        public void RemoveStart_WhenIndexOutOfRange_ShouldThrowArgumentOutOfRangeException()
+        public override void RemoveStart_WhenIndexOutOfRange_ShouldThrowArgumentOutOfRangeException()
         {
             MyList<int> inputList = new MyList<int>() { };
 
